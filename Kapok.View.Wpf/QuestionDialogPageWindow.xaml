@@ -1,0 +1,128 @@
+﻿<Window x:Class="Kapok.View.Wpf.QuestionDialogPageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vmwpf="clr-namespace:Kapok.View.Wpf"
+        xmlns:systemWindows="clr-namespace:System.Windows"
+        mc:Ignorable="d"
+        Title="{Binding Title, Mode=OneTime}" Width="350"
+        ResizeMode="NoResize" SizeToContent="Height"
+        systemWindows:WindowExtension.HideCloseButton="{Binding HasEnabledCancelButton, Converter={x:Static vmwpf:InverseBooleanConverter.DefaultConverter}, Mode=OneTime}"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Initialized">
+            <i:InvokeCommandAction Command="{Binding OnLoadingAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoadedAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <vmwpf:IActionToICommandConverter x:Key="IActionToICommandConverter" />
+        <vmwpf:ImageNameToImageSourceConverter x:Key="ImageNameToImageSourceConverter" />
+        <vmwpf:CaptionConverter x:Key="CaptionConverter" />
+        <ControlTemplate TargetType="Button" x:Key="DialogButtonTemplate">
+            <Grid x:Name="grid" IsEnabled="{TemplateBinding IsEnabled}">
+                <Grid.Resources>
+                    <SolidColorBrush Color="Transparent" x:Key="BorderBrush" />
+                </Grid.Resources>
+                <Border x:Name="border" CornerRadius="4" BorderThickness="1" Background="White"
+                        Padding="{TemplateBinding Padding}"
+                        Margin="{TemplateBinding Margin}"
+                        BorderBrush="{StaticResource BorderBrush}">
+                    <ContentPresenter HorizontalAlignment="Left"
+                                      VerticalAlignment="Center"
+                                      TextElement.FontWeight="Bold">
+                    </ContentPresenter>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsDefault, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard BeginTime="00:00:00" RepeatBehavior="Forever" AutoReverse="True"
+                                                        Storyboard.Target="{StaticResource BorderBrush}"
+                                                        Storyboard.TargetProperty="Color">
+                                                <ColorAnimation From="#9CEBFF" To="Transparent" Duration="0:0:1" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+            </Grid>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="#C6C6C6"/>
+                    <Setter Property="Background" TargetName="border">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                                <GradientStop Color="Transparent" Offset="0" />
+                                <GradientStop Color="#F6F6F6" Offset="1" />
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="#ADADAD" />
+                    <Setter Property="Background" TargetName="border">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                                <GradientStop Color="#DEDEDE" Offset="0"/>
+                                <GradientStop Color="#F2F3F3" Offset="0.1"/>
+                                <GradientStop Color="#F2F3F3" Offset="0.9"/>
+                                <GradientStop Color="#DEDEDE" Offset="1.1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" TargetName="grid" Value="0.25"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="{Binding Message}" Margin="7" TextWrapping="Wrap"/>
+        <ItemsControl Grid.Row="1">
+            <ItemsControl Margin="7" ItemsSource="{Binding DialogButtons}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Margin="0,2,0,0" Padding="7"
+                                IsDefault="{Binding IsDefault, Mode=OneTime}"
+                                IsCancel="{Binding IsCancel, Mode=OneTime}"
+                                IsEnabled="{Binding IsEnabled, Mode=OneTime}"
+                                Command="{Binding DataContext.DialogButtonAction, Converter={StaticResource IActionToICommandConverter},
+                                                  RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                CommandParameter="{Binding}"
+                                Template="{StaticResource DialogButtonTemplate}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,4,6,1" VerticalAlignment="Top"
+                                       Source="{Binding Image, Converter={StaticResource ImageNameToImageSourceConverter}, ConverterParameter='Small', Mode=OneTime}" />
+                                <TextBlock Grid.Column="1" Grid.Row="0" FontSize="15" Text="{Binding Label, Converter={StaticResource CaptionConverter}}" TextWrapping="Wrap" />
+                                <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Description, Converter={StaticResource CaptionConverter}}" TextWrapping="Wrap"/>
+                            </Grid>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ItemsControl>
+    </Grid>
+</Window>

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyName>Infralution.Localization.Wpf</AssemblyName>
+    <RootNamespace>Infralution.Localization.Wpf</RootNamespace>
+    <UseWPF>true</UseWPF>
+
+	<PackageId>Infralution.Localization.Wpf</PackageId>
+	<Version>1.0.0</Version>
+	<RepositoryUrl>https://github.com/kapok-fwk/kapok-fwk</RepositoryUrl>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <Compile Remove="Resources\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Properties\**" />
+    <None Remove="Resources\**" />
+    <Page Remove="Properties\**" />
+    <Page Remove="Resources\**" />
+  </ItemGroup>
+
+</Project>

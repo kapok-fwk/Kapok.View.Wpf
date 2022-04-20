@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="Kapok.View.Wpf.Report.ReportParameterList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Kapok.View.Wpf.Report"
+             xmlns:vmb="clr-namespace:Kapok.View.Wpf"
+             mc:Ignorable="d"
+             x:Name="UserControl"
+             d:DesignHeight="100" d:DesignWidth="350">
+    <UserControl.Resources>
+        <vmb:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </UserControl.Resources>
+    <DataGrid ItemsSource="{Binding ElementName=UserControl, Path=ParameterList}"
+              AutoGenerateColumns="False"
+              CanUserAddRows="False"
+              CanUserDeleteRows="False"
+              CanUserReorderColumns="False">
+        <DataGrid.Resources>
+            <!-- ReSharper disable Xaml.RedundantResource -->
+            <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+            <DataTemplate x:Key="TextBlockTemplate">
+                <TextBlock Text="{Binding Value}"
+                           IsEnabled="{Binding HasIterativeValues, Converter={StaticResource InverseBooleanConverter}}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="TextBoxTemplate">
+                <TextBox FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                         Text="{Binding Value, UpdateSourceTrigger=LostFocus}"
+                         IsEnabled="{Binding HasIterativeValues, Converter={StaticResource InverseBooleanConverter}}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="CheckBoxTemplate">
+                <CheckBox FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                          IsChecked="{Binding Value, UpdateSourceTrigger=LostFocus}"
+                          IsEnabled="{Binding HasIterativeValues, Converter={StaticResource InverseBooleanConverter}}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="BooleanNullableTemplate">
+                <ComboBox FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                          SelectedItem="{Binding Value, UpdateSourceTrigger=LostFocus}"
+                          IsEnabled="{Binding HasIterativeValues, Converter={StaticResource InverseBooleanConverter}}">
+                    <ComboBoxItem Content="{}" />
+                    <ComboBoxItem Content="0" />
+                    <ComboBoxItem Content="1" />
+                </ComboBox>
+            </DataTemplate>
+            <DataTemplate x:Key="ComboBoxTemplate">
+                <ComboBox FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                          SelectedValue="{Binding Value, UpdateSourceTrigger=LostFocus}"
+                          SelectedValuePath="DataValue"
+                          DisplayMemberPath="DisplayValue"
+                          ItemsSource="{Binding ProposalValues}"
+                          IsEnabled="{Binding HasIterativeValues, Converter={StaticResource InverseBooleanConverter}}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="ComboBoxEditableTemplate">
+                <ComboBox FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                          Text="{Binding Value, UpdateSourceTrigger=LostFocus}"
+                          SelectedValuePath="DataValue"
+                          DisplayMemberPath="DisplayValue"
+                          IsEditable="True"
+                          ItemsSource="{Binding ProposalValues}"
+                          IsEnabled="{Binding HasIterativeValues, Converter={StaticResource InverseBooleanConverter}}"
+                          />
+            </DataTemplate>
+            <DataTemplate x:Key="DatePickerTemplate">
+                <DatePicker FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+                            SelectedDate="{Binding Value}"
+                            IsEnabled="{Binding HasIterativeValues, Converter={StaticResource InverseBooleanConverter}}"/>
+            </DataTemplate>
+            <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+            <!-- ReSharper restore Xaml.RedundantResource -->
+
+            <local:ReportParameterTemplateSelector x:Key="ReportParameterTemplateSelector" />
+        </DataGrid.Resources>
+        <DataGrid.Columns>
+            <DataGridTextColumn Binding="{Binding ReportParameter.Name}"
+                                IsReadOnly="True"
+                                Visibility="Hidden" />
+            <DataGridTextColumn Header="{Resx Key=Column_ParamName, ResxName=Kapok.View.Wpf.Report.Resources.ReportParameterList }"
+                                Binding="{Binding ReportParameter.Caption}"
+                                Width="175"
+                                IsReadOnly="True"
+                                />
+            <DataGridTemplateColumn Header="{Resx Key=Column_Value, ResxName=Kapok.View.Wpf.Report.Resources.ReportParameterList}"
+                                    CellTemplate="{StaticResource TextBlockTemplate}"
+                                    CellEditingTemplateSelector="{StaticResource ReportParameterTemplateSelector}"
+                                    Width="*"
+                                    IsReadOnly="{Binding HasIterativeValues}"
+                                    />
+        </DataGrid.Columns>
+    </DataGrid>
+</UserControl>

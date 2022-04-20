@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+
+	<PackageId>Kapok.View.Wpf.AvalonDock</PackageId>
+	<Version>0.1.0</Version>
+	<Authors>Kapok Framework Community</Authors>
+	<RepositoryUrl>https://github.com/kapok-fwk/kapok-fwk</RepositoryUrl>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dirkster.AvalonDock" Version="4.60.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kapok.View.Wpf\Kapok.View.Wpf.csproj" />
+    <ProjectReference Include="..\Infralution.Localization.Wpf\Infralution.Localization.Wpf.csproj" />
+  </ItemGroup>
+
+</Project>

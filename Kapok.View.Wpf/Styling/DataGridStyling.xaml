@@ -1,0 +1,609 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:vmwpf="clr-namespace:Kapok.View.Wpf">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="FlatComboBoxStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <vmwpf:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    <vmwpf:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+    <vmwpf:IActionToICommandConverter x:Key="IActionToICommandConverter" />
+    <vmwpf:ImageNameToImageSourceConverter x:Key="ImageNameToImageSourceConverter" />
+    <vmwpf:BuildListControlEntryMouseDoubleClickCommand x:Key="BuildListControlEntryMouseDoubleClickCommand" />
+    <vmwpf:DataSetEntityColorConverter x:Key="DataSetEntityColorConverter"
+                                       FallbackForeground="Black"
+                                       FallbackForegroundSelected="Black"
+                                       FallbackBackground="White"
+                                       FallbackBackgroundAlternationIndex1="#fff2f7ff"
+                                       FallbackBorderBrushSelected="#ffAFE3FA">
+        <vmwpf:DataSetEntityColorConverter.FallbackBackgroundSelected>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Offset="0" Color="#ffD3EDFA" />
+                <GradientStop Offset="1" Color="#ffAFE3FA" />
+            </LinearGradientBrush>
+        </vmwpf:DataSetEntityColorConverter.FallbackBackgroundSelected>
+    </vmwpf:DataSetEntityColorConverter>
+
+    <Style TargetType="Button" x:Key="DataGrid_IndexSortAscendingButton" BasedOn="{StaticResource {x:Type Button}}">
+        <Style.Setters>
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+
+            <Setter Property="Command" Value="{Binding DataSet.SortAscendingAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+            <Setter Property="Visibility" Value="{Binding DataSet.SortAscendingAction.IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Image Source="{Binding DataSet.SortAscendingAction.Image, Converter={StaticResource ImageNameToImageSourceConverter}, ConverterParameter='Small', Mode=OneTime}" />
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style TargetType="Button" x:Key="DataGrid_IndexSortDescendingButton" BasedOn="{StaticResource {x:Type Button}}">
+        <Style.Setters>
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+
+            <Setter Property="Command" Value="{Binding DataSet.SortDescendingAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+            <Setter Property="Visibility" Value="{Binding DataSet.SortDescendingAction.IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Setter Property="Content">
+                <Setter.Value>
+                    <Image Source="{Binding DataSet.SortDescendingAction.Image, Converter={StaticResource ImageNameToImageSourceConverter}, ConverterParameter='Small', Mode=OneTime}" />
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+    <!-- Styling the DataGrid -->
+    <Style TargetType="DataGridRow" x:Key="CustomDataGridRowStyle">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+
+        <Style.Triggers>
+            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource DataSetEntityColorConverter}" ConverterParameter="Background" FallbackValue="White">
+                            <Binding Path="DataContext.DataSet" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=vmwpf:CustomDataGrid}"/>
+                            <Binding Path="."/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource DataSetEntityColorConverter}" ConverterParameter="BackgroundAlternationIndex1" FallbackValue="#fff2f7ff">
+                            <Binding Path="DataContext.DataSet" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=vmwpf:CustomDataGrid}"/>
+                            <Binding Path="."/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+            <!-- Highlight a grid row as the mouse passes over -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="LightCyan" />
+            </Trigger>
+
+            <!-- Highlight the new item placeholder row -->
+            <DataTrigger Binding="{Binding}" Value="{x:Static CollectionView.NewItemPlaceholder}">
+                <Setter Property="Background" Value="LemonChiffon" />
+            </DataTrigger>
+
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource DataSetEntityColorConverter}" ConverterParameter="BackgroundSelected">
+                            <MultiBinding.FallbackValue>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="#ffD3EDFA" />
+                                    <GradientStop Offset="1" Color="#ffAFE3FA" />
+                                </LinearGradientBrush>
+                            </MultiBinding.FallbackValue>
+                            <Binding Path="DataContext.DataSet" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=vmwpf:CustomDataGrid}"/>
+                            <Binding Path="."/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource DataSetEntityColorConverter}" ConverterParameter="BorderBrushSelected" FallbackValue="#ffAFE3FA">
+                            <Binding Path="DataContext.DataSet" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=vmwpf:CustomDataGrid}"/>
+                            <Binding Path="."/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DataGridCell" x:Key="CustomDataGridCellStyle">
+        <Style.Triggers>
+            <!-- Highlight selected rows -->
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource DataSetEntityColorConverter}" ConverterParameter="BackgroundSelected">
+                            <MultiBinding.FallbackValue>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="#ffD3EDFA" />
+                                    <GradientStop Offset="1" Color="#ffAFE3FA" />
+                                </LinearGradientBrush>
+                            </MultiBinding.FallbackValue>
+                            <Binding Path="DataContext.DataSet" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=vmwpf:CustomDataGrid}"/>
+                            <Binding Path="."/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource DataSetEntityColorConverter}" ConverterParameter="BackgroundSelected" FallbackValue="#ffAFE3FA">
+                            <Binding Path="DataContext.DataSet" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=vmwpf:CustomDataGrid}"/>
+                            <Binding Path="."/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource DataSetEntityColorConverter}" ConverterParameter="ForegroundSelected" FallbackValue="Black">
+                            <Binding Path="DataContext.DataSet" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=vmwpf:CustomDataGrid}"/>
+                            <Binding Path="."/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <DrawingBrush Viewport="0,0,2,2" ViewportUnits="Absolute" TileMode="Tile">
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup>
+                                    <GeometryDrawing Brush="Black">
+                                        <GeometryDrawing.Geometry>
+                                            <GeometryGroup>
+                                                <RectangleGeometry Rect="0,0,50,50" />
+                                                <RectangleGeometry Rect="50,50,50,50" />
+                                            </GeometryGroup>
+                                        </GeometryDrawing.Geometry>
+                                    </GeometryDrawing>
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+            <Trigger Property="IsEditing" Value="True">
+                <Setter Property="Background" Value="White" />
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="MinHeight" Value="24"/>
+
+        <!-- Add some padding around the contents of a cell -->
+        <Setter Property="Padding" Value="3,2,3,2" />
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Border Padding="{TemplateBinding Padding}" 
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle">
+            <Setter.Value>
+                <Style TargetType="Control">
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+
+        <!-- coloring -->
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource DataSetEntityColorConverter}" ConverterParameter="Foreground" FallbackValue="Black">
+                    <Binding Path="DataContext.DataSet" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=vmwpf:CustomDataGrid}"/>
+                    <Binding Path="."/>
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Data grid column needs other styling -->
+    <Style TargetType="DataGridCell" x:Key="SpecialComboBoxCellStyle" BasedOn="{StaticResource CustomDataGridCellStyle}">
+        <Style.Triggers>
+            <!-- Highlight selected rows -->
+            <Trigger Property="IsEditing" Value="True">
+                <Setter Property="Padding" Value="0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DataGrid">
+        <!-- Make the border and grid lines a little less imposing -->
+        <Setter Property="BorderBrush" Value="#AEAFAF" />
+        <Setter Property="HorizontalGridLinesBrush" Value="Transparent" />
+        <Setter Property="VerticalGridLinesBrush" Value="#D1D2D5" />
+
+        <!-- Performance thing, see also: http://social.msdn.microsoft.com/Forums/en-US/wpf/thread/98090161-0abf-4799-bbcb-852dcc0f0608 -->
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
+        <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling" />
+
+        <Setter Property="AlternationCount" Value="2" />
+
+        <Setter Property="RowStyle" Value="{StaticResource CustomDataGridRowStyle}" />
+        <Setter Property="CellStyle" Value="{StaticResource CustomDataGridCellStyle}" />
+        <Setter Property="RowValidationErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Margin="0,-2,0,-2" ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=(Validation.Errors)[0].ErrorContent}">
+                        <Ellipse StrokeThickness="0" Fill="Red" Width="{TemplateBinding FontSize}" Height="{TemplateBinding FontSize}" HorizontalAlignment="Center" />
+                        <TextBlock Text="!" FontSize="{TemplateBinding FontSize}" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="vmwpf:CustomDataGrid" BasedOn="{StaticResource {x:Type DataGrid}}" />
+
+    <Style TargetType="TextBlock" x:Key="DataGridColumnElementTrimText">
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="DataGridColumnElementNumber">
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+    <Style TargetType="ComboBox" x:Key="DataGridTemplateColumn_ComboBox">
+        <!-- Every time you use the <DataGridTemplateColumn />, it is necessary to set the focus on the element. -->
+        <Setter Property="FocusManager.FocusedElement" Value="{Binding RelativeSource={RelativeSource Self}}" />
+    </Style>
+    <Style TargetType="ComboBox" x:Key="DataGridComboBoxColumnElementEnumList" BasedOn="{StaticResource DataGridTemplateColumn_ComboBox}">
+        <!-- this style needs to be used as 'BaseOf' style when the values come from the EnumToCollectionConverter class -->
+        <Setter Property="SelectedValuePath" Value="Value" />
+        <Setter Property="DisplayMemberPath" Value="Name" />
+        <Setter Property="IsDropDownOpen" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type vmwpf:CustomDataGrid}}, Path=PauseExcelNavigation}" />
+    </Style>
+    <Style TargetType="ComboBox" x:Key="DataGridTemplateColumn_ComboBoxEditable" BasedOn="{StaticResource DataGridTemplateColumn_ComboBox}">
+        <!-- this style should be used in the DataTemplate for DataGridTemplateColumn.CellEditingTemplate -->
+        <Setter Property="IsEditable" Value="True" />
+        <Setter Property="IsTextSearchEnabled" Value="True" />
+        <Setter Property="IsTextSearchCaseSensitive" Value="False" />
+        <Setter Property="StaysOpenOnEdit" Value="True" />
+        <Setter Property="IsDropDownOpen" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type vmwpf:CustomDataGrid}}, Path=PauseExcelNavigation}" />
+    </Style>
+
+    <!-- Data grid Wrap column text -->
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--
+    Multi select row header template
+    Source: https://blog.scottlogic.com/2008/11/26/multiselect-datagrid-with-checkboxes.html
+    -->
+    <DataTemplate x:Key="DataGridMultiSelectRowHeaderTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16" />
+                <!--<ColumnDefinition />-->
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0" Source="../Resources/Icons/new_small.png">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Item, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}}"
+                                         Value="{x:Static CollectionView.NewItemPlaceholder}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <Image Grid.Column="0" Source="../Resources/Icons/tool-pencil_small.png">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}}"
+                                         Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+
+            <!--
+            This is something which could be useful in the future.
+            I disabled it here because it looked ugly and the effect by using SHIFT+click on other item is the same.
+            
+            <CheckBox Grid.Column="1" IsChecked="{Binding Path=IsSelected, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}}"
+                      Background="Transparent">
+                <CheckBox.Style>
+                    <Style TargetType="CheckBox">
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=Item, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}}"
+                                               Value="{x:Static CollectionView.NewItemPlaceholder}"
+                                    />
+                                    <Condition Binding="{Binding Path=IsNewItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}}"
+                                               Value="True"
+                                    />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </CheckBox.Style>
+            </CheckBox>-->
+        </Grid>
+    </DataTemplate>
+
+    <!--
+    A static hierarchical tree which can be used with entries which implement the interface IHierarchyEntry<TEntry>
+    -->
+    <Style x:Key="DataGridTreeTextColumn_ToggleButton" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="ClickMode" Value="Press"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="15" Height="13" SnapsToDevicePixels="True">
+                        <!-- Rectangle 9x9 pixels -->
+                        <Rectangle Width="9" Height="9" Stroke="#919191" SnapsToDevicePixels="true">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="0.5,2" StartPoint="0.5,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                    <GradientStop Color="Silver" Offset="0.5"/>
+                                    <GradientStop Color="LightGray" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <!-- Vertical line inside rectangle -->
+                        <Rectangle x:Name="ExpandPath" Width="1"  Height="5" Stroke="Black" SnapsToDevicePixels="true"/>
+                        <!-- Horizontal line inside rectangle -->
+                        <Rectangle Width="5" Height="1"  Stroke="Black" SnapsToDevicePixels="true"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Visibility" TargetName="ExpandPath" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="DataGridNewItemRowHeaderTemplate">
+        <Grid>
+            
+        </Grid>
+    </DataTemplate>
+
+    <Style x:Key="TableDataDataGrid" TargetType="vmwpf:CustomDataGrid" BasedOn="{StaticResource {x:Type DataGrid}}">
+        <Style.Triggers>
+            <Trigger Property="SelectionMode" Value="Extended">
+                <Setter Property="RowHeaderTemplate" Value="{StaticResource DataGridMultiSelectRowHeaderTemplate}" />
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="ColumnsSource" Value="{Binding DataSet.Columns, Mode=OneTime}"/>
+        <Setter Property="ItemsSource" Value="{Binding DataSet.View, Mode=OneTime}" />
+        <Setter Property="LastEditCancelled" Value="{Binding DataSet.LastEditCancelled, Mode=OneWayToSource}"/>
+
+        <Setter Property="SelectedItem" Value="{Binding DataSet.Current}" />
+        <Setter Property="SelectedItems" Value="{Binding DataSet.SelectedEntries, Mode=TwoWay}" />
+        <Setter Property="SelectionMode" Value="Extended" />
+
+        <Setter Property="CanUserAddRows" Value="{Binding DataSet.InsertAllowed}" />
+        <Setter Property="CanUserDeleteRows" Value="{Binding DataSet.DeleteAllowed}" />
+        <Setter Property="CanUserResizeRows" Value="False" />
+        <Setter Property="CanUserPasteToNewRows" Value="{Binding DataSet.InsertAllowed}" />
+        <Setter Property="IsReadOnly" Value="{Binding IsEditable, Converter={StaticResource InverseBooleanConverter}}" />
+
+        <Setter Property="CanUserSortColumns" Value="False" />
+
+        <Setter Property="Filter" Value="{Binding DataSet.Filter.UserLayer, Mode=OneTime}" />
+        <Setter Property="IsFilterVisible" Value="{Binding DataSet.IsFilterVisible, Mode=OneWay}" />
+        <!--
+        TODO: I don't know why but this here doesn't work when I try to set it via this style. But it works when I do it in the page where the vmb:CustomDataGrid control is implemented.
+        <Setter Property="ColumnHeaderStyle" Value="{StaticResource DataGridColumnHeaderWithFilterStyle}"/>
+        -->
+
+        <Setter Property="RowStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource CustomDataGridRowStyle}">
+
+                    <Setter Property="vmwpf:InteractivityItems.Template">
+                        <Setter.Value>
+                            <vmwpf:InteractivityTemplate>
+                                <vmwpf:InteractivityItems>
+                                    <vmwpf:InteractivityItems.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick">
+                                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                            <vmwpf:EventToCommand Command="{Binding DataContext,
+                                                                                    Converter={StaticResource BuildListControlEntryMouseDoubleClickCommand},
+                                                                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}},
+                                                                                    Mode=OneTime}"
+                                                                  PassEventArgsToCommand="True" />
+                                        </i:EventTrigger>
+                                    </vmwpf:InteractivityItems.Triggers>
+                                </vmwpf:InteractivityItems>
+                            </vmwpf:InteractivityTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                    <!--
+                    TODO: Implement 'Open' for card page if exist
+                    TODO: Implement 'Edit' to edit row (when table is editable) or open card page
+                    
+                    TODO: implement icons, see as well: https://www.wpf-tutorial.com/common-interface-controls/contextmenu/
+                    -->
+
+                    <MenuItem Command="New">
+                        <MenuItem.Icon>
+                            <Image Source="../Resources/Icons/new_small.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Command="Delete">
+                        <MenuItem.Icon>
+                            <Image Source="../Resources/Icons/symbol-delete_small.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- data set top menu buttons -->
+
+    <Style TargetType="ToggleButton" x:Key="DataSet_EditFilterButton">
+        <Style.Setters>
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Margin" Value="3,0,0,0" />
+
+            <Setter Property="IsChecked" Value="{Binding DataSet.ToggleEditFilterAction.IsChecked, Mode=TwoWay}" />
+            <Setter Property="Content">
+                <Setter.Value>
+                    <StackPanel>
+                        <Image Source="{Binding DataSet.ToggleEditFilterAction.Image, Converter={StaticResource ImageNameToImageSourceConverter}, ConverterParameter='Small', Mode=OneTime}" />
+                        <Popup IsOpen="{Binding DataSet.ToggleEditFilterAction.IsChecked, Mode=TwoWay}" StaysOpen="False"
+                               HorizontalOffset="-2" VerticalOffset="3"
+                               Placement="Bottom" PopupAnimation="Slide"
+                               MinHeight="127" MinWidth="327"
+                               Height="167" Width="327">
+                            <Border BorderBrush="#AEAFAF" BorderThickness="1" Background="White">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="7" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="7" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="7" />
+                                    </Grid.ColumnDefinitions>
+                                    <DataGrid Grid.Row="1" Grid.Column="1"
+                                                  ItemsSource="{Binding DataSet.FilterView.PropertyFilters, Mode=OneTime}"
+                                                  CanUserAddRows="True"
+                                                  CanUserDeleteRows="True"
+                                                  CanUserResizeRows="False"
+                                                  CanUserReorderColumns="False"
+                                                  CanUserSortColumns="False"
+                                                  AutoGenerateColumns="False">
+                                        <DataGrid.Columns>
+                                            <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                                            <vmwpf:DataGridLookupComboBoxColumn Header="Property"
+                                                                                Width="150"
+                                                                                CellStyle="{StaticResource SpecialComboBoxCellStyle}"
+                                                                                ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}},
+                                                                                      Path=DataContext.DataSet.FilterView.FilterablePropertiesView.View,
+                                                                                      Mode=OneTime}"
+                                                                                SelectedValueBinding="{Binding Property, UpdateSourceTrigger=LostFocus}"
+                                                                                DisplayMemberPath="Name"                                                                                  
+                                                                                />
+
+                                            <DataGridTextColumn Header="Value"
+                                                                Binding="{Binding Value, UpdateSourceTrigger=LostFocus}"
+                                                                Width="125"
+                                                                IsReadOnly="{Binding IsReadOnly}"/>
+
+                                            <DataGridTemplateColumn IsReadOnly="True">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}},
+                                                                                  Path=DataContext.DataSet.FilterView.DeleteFilterablePropertyAction,
+                                                                                  Converter={StaticResource IActionToICommandConverter},
+                                                                                  Mode=OneTime}"
+                                                                CommandParameter="{Binding}"
+                                                                Background="Transparent"
+                                                                BorderThickness="0"
+                                                                Visibility="{Binding IsReadOnly,
+                                                                                     Converter={StaticResource InverseBooleanToVisibilityConverter},
+                                                                                     FallbackValue=Hidden}">
+                                                            <Image Source="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}},
+                                                                                    Path=DataContext.DataSet.FilterView.DeleteFilterablePropertyAction.Image,
+                                                                                    Converter={StaticResource ImageNameToImageSourceConverter},
+                                                                                    ConverterParameter='Small',
+                                                                                    Mode=OneTime}"/>
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <StackPanel Grid.Row="2" Grid.Column="1"
+                                                Orientation="Horizontal" HorizontalAlignment="Right"
+                                                ResxExtension.DefaultResxName="Kapok.View.WpfResources.Styling.DataGridStyling">
+                                        <Button Padding="3" Margin="0,4,4,4" Content="{Resx DataSet_EditFilterButton_Clear}" Command="{Binding DataSet.FilterView.ClearAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+                                        <Button Padding="3" Margin="0,4,4,4" Content="{Resx DataSet_EditFilterButton_Reset}" Command="{Binding DataSet.FilterView.ResetAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+                                        <Button Padding="3" Margin="0,4,4,4" Command="{Binding DataSet.FilterView.ApplyAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{Binding DataSet.FilterView.ApplyAction.Image, Converter={StaticResource ImageNameToImageSourceConverter}, ConverterParameter='Small', Mode=OneTime}"/>
+                                                <TextBlock>
+                                                    <Run Text="{Resx DataSet_EditFilterButton_Apply}" />
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                    <Thumb Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Opacity="0"
+                                               Cursor="SizeWE" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <i:Interaction.Behaviors>
+                                            <vmwpf:PopupThumbResizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </Thumb>
+                                    <Thumb Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Opacity="0"
+                                               Cursor="SizeNS" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <i:Interaction.Behaviors>
+                                            <vmwpf:PopupThumbResizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </Thumb>
+                                    <!-- ReSharper disable once MarkupAttributeTypo -->
+                                    <Thumb Grid.Row="3" Grid.Column="2" Opacity="0"
+                                               Cursor="SizeNWSE" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <i:Interaction.Behaviors>
+                                            <vmwpf:PopupThumbResizeBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </Thumb>
+                                </Grid>
+                            </Border>
+                        </Popup>
+                    </StackPanel>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+</ResourceDictionary>

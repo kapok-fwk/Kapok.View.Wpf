@@ -1,0 +1,415 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+
+	<PackageId>Kapok.View.Wpf</PackageId>
+	<Version>0.1.0</Version>
+	<Authors>Kapok Framework Community</Authors>
+	<RepositoryUrl>https://github.com/kapok-fwk/kapok-fwk</RepositoryUrl>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Icons\account-book_large.png" />
+    <None Remove="Resources\Icons\account-book_small.png" />
+    <None Remove="Resources\Icons\account-statement_large.png" />
+    <None Remove="Resources\Icons\account-statement_small.png" />
+    <None Remove="Resources\Icons\address-book-business_large.png" />
+    <None Remove="Resources\Icons\address-book-business_small.png" />
+    <None Remove="Resources\Icons\bank-exchange_large.png" />
+    <None Remove="Resources\Icons\bank-exchange_small.png" />
+    <None Remove="Resources\Icons\bank_large.png" />
+    <None Remove="Resources\Icons\bank_small.png" />
+    <None Remove="Resources\Icons\book_large.png" />
+    <None Remove="Resources\Icons\book_small.png" />
+    <None Remove="Resources\Icons\buildings_large.png" />
+    <None Remove="Resources\Icons\buildings_small.png" />
+    <None Remove="Resources\Icons\button-add-browse_large.png" />
+    <None Remove="Resources\Icons\button-add-browse_small.png" />
+    <None Remove="Resources\Icons\button-add_large.png" />
+    <None Remove="Resources\Icons\button-add_small.png" />
+    <None Remove="Resources\Icons\button-cancel_large.png" />
+    <None Remove="Resources\Icons\button-cancel_small.png" />
+    <None Remove="Resources\Icons\button-error_large.png" />
+    <None Remove="Resources\Icons\button-error_small.png" />
+    <None Remove="Resources\Icons\button-help_large.png" />
+    <None Remove="Resources\Icons\button-help_small.png" />
+    <None Remove="Resources\Icons\button-info_large.png" />
+    <None Remove="Resources\Icons\button-info_small.png" />
+    <None Remove="Resources\Icons\button-ok_large.png" />
+    <None Remove="Resources\Icons\button-ok_small.png" />
+    <None Remove="Resources\Icons\command-redo-gray_large.png" />
+    <None Remove="Resources\Icons\command-redo-gray_small.png" />
+    <None Remove="Resources\Icons\command-redo_large.png" />
+    <None Remove="Resources\Icons\command-redo_small.png" />
+    <None Remove="Resources\Icons\command-undo-gray_large.png" />
+    <None Remove="Resources\Icons\command-undo-gray_small.png" />
+    <None Remove="Resources\Icons\command-undo_large.png" />
+    <None Remove="Resources\Icons\command-undo_small.png" />
+    <None Remove="Resources\Icons\company-building_large.png" />
+    <None Remove="Resources\Icons\company-building_small.png" />
+    <None Remove="Resources\Icons\courthouse_large.png" />
+    <None Remove="Resources\Icons\courthouse_small.png" />
+    <None Remove="Resources\Icons\currency-exchange_large.png" />
+    <None Remove="Resources\Icons\currency-exchange_small.png" />
+    <None Remove="Resources\Icons\datev_large.png" />
+    <None Remove="Resources\Icons\datev_small.png" />
+    <None Remove="Resources\Icons\document-new_large.png" />
+    <None Remove="Resources\Icons\document-new_small.png" />
+    <None Remove="Resources\Icons\document-arrow-down_large.png" />
+    <None Remove="Resources\Icons\document-arrow-down_small.png" />
+    <None Remove="Resources\Icons\document-edit_large.png" />
+    <None Remove="Resources\Icons\document-edit_small.png" />
+    <None Remove="Resources\Icons\execute_large.png" />
+    <None Remove="Resources\Icons\execute_small.png" />
+    <None Remove="Resources\Icons\export-to-excel_large.png" />
+    <None Remove="Resources\Icons\export-to-excel_small.png" />
+    <None Remove="Resources\Icons\filter-cancel-2_large.png" />
+    <None Remove="Resources\Icons\filter-cancel-2_small.png" />
+    <None Remove="Resources\Icons\filter-edit_large.png" />
+    <None Remove="Resources\Icons\filter-edit_small.png" />
+    <None Remove="Resources\Icons\filter_large.png" />
+    <None Remove="Resources\Icons\filter_small.png" />
+    <None Remove="Resources\Icons\new_small.png" />
+    <None Remove="Resources\Icons\note-text_large.png" />
+    <None Remove="Resources\Icons\note-text_small.png" />
+    <None Remove="Resources\Icons\note_large.png" />
+    <None Remove="Resources\Icons\note_small.png" />
+    <None Remove="Resources\Icons\report-book_large.png" />
+    <None Remove="Resources\Icons\report-book_small.png" />
+    <None Remove="Resources\Icons\report-print_large.png" />
+    <None Remove="Resources\Icons\report-print_small.png" />
+    <None Remove="Resources\Icons\report_large.png" />
+    <None Remove="Resources\Icons\report_small.png" />
+    <None Remove="Resources\Icons\review-track-changes_large.png" />
+    <None Remove="Resources\Icons\review-track-changes_small.png" />
+    <None Remove="Resources\Icons\save_large.png" />
+    <None Remove="Resources\Icons\save_small.png" />
+    <None Remove="Resources\Icons\sort-az_large.png" />
+    <None Remove="Resources\Icons\sort-az_small.png" />
+    <None Remove="Resources\Icons\sort-down_large.png" />
+    <None Remove="Resources\Icons\sort-down_small.png" />
+    <None Remove="Resources\Icons\sort-up_large.png" />
+    <None Remove="Resources\Icons\sort-up_small.png" />
+    <None Remove="Resources\Icons\sort-za_large.png" />
+    <None Remove="Resources\Icons\sort-za_small.png" />
+    <None Remove="Resources\Icons\sort_large.png" />
+    <None Remove="Resources\Icons\sort_small.png" />
+    <None Remove="Resources\Icons\symbol-delete_large.png" />
+    <None Remove="Resources\Icons\symbol-delete_small.png" />
+    <None Remove="Resources\Icons\symbol-question-mark_large.png" />
+    <None Remove="Resources\Icons\symbol-question-mark_small.png" />
+    <None Remove="Resources\Icons\symbol-refresh_large.png" />
+    <None Remove="Resources\Icons\symbol-refresh_small.png" />
+    <None Remove="Resources\Icons\table-import_large.png" />
+    <None Remove="Resources\Icons\table-import_small.png" />
+    <None Remove="Resources\Icons\table-row-delete_large.png" />
+    <None Remove="Resources\Icons\table-row-delete_small.png" />
+    <None Remove="Resources\Icons\table-row-down_large.png" />
+    <None Remove="Resources\Icons\table-row-down_small.png" />
+    <None Remove="Resources\Icons\table-row-edit_large.png" />
+    <None Remove="Resources\Icons\table-row-edit_small.png" />
+    <None Remove="Resources\Icons\table-row-extract_large.png" />
+    <None Remove="Resources\Icons\table-row-extract_small.png" />
+    <None Remove="Resources\Icons\table-row-insert_large.png" />
+    <None Remove="Resources\Icons\table-row-insert_small.png" />
+    <None Remove="Resources\Icons\table-row-new_large.png" />
+    <None Remove="Resources\Icons\table-row-new_small.png" />
+    <None Remove="Resources\Icons\table-row-up_large.png" />
+    <None Remove="Resources\Icons\table-row-up_small.png" />
+    <None Remove="Resources\Icons\tag-blue_large.png" />
+    <None Remove="Resources\Icons\tag-blue_small.png" />
+    <None Remove="Resources\Icons\tag-gray_large.png" />
+    <None Remove="Resources\Icons\tag-gray_small.png" />
+    <None Remove="Resources\Icons\tag-green_large.png" />
+    <None Remove="Resources\Icons\tag-green_small.png" />
+    <None Remove="Resources\Icons\tag-red_large.png" />
+    <None Remove="Resources\Icons\tag-red_small.png" />
+    <None Remove="Resources\Icons\tool-pencil_large.png" />
+    <None Remove="Resources\Icons\tool-pencil_small.png" />
+    <None Remove="Resources\Icons\trash_large.png" />
+    <None Remove="Resources\Icons\trash_small.png" />
+    <None Remove="Resources\Icons\user-group_large.png" />
+    <None Remove="Resources\Icons\user-group_small.png" />
+    <None Remove="Resources\Icons\user_large.png" />
+    <None Remove="Resources\Icons\user_small.png" />
+    <None Remove="Resources\Icons\view-details_large.png" />
+    <None Remove="Resources\Icons\view-details_small.png" />
+    <None Remove="Resources\Icons\window_large.png" />
+    <None Remove="Resources\Icons\window_small.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Kapok.Acl" Version="0.1.0" />
+    <PackageReference Include="Kapok.Core" Version="0.1.0" />
+    <PackageReference Include="Kapok.Report" Version="0.1.0" />
+    <PackageReference Include="Kapok.View" Version="0.1.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Infralution.Localization.Wpf\Infralution.Localization.Wpf.csproj" />
+    <ProjectReference Include="..\MimeTypeMap\MimeTypes.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\account-book_large.png" />
+    <Resource Include="Resources\Icons\account-book_small.png" />
+    <Resource Include="Resources\Icons\account-statement_large.png" />
+    <Resource Include="Resources\Icons\account-statement_small.png" />
+    <Resource Include="Resources\Icons\address-book-business_large.png" />
+    <Resource Include="Resources\Icons\address-book-business_small.png" />
+    <Resource Include="Resources\Icons\bank-exchange_large.png" />
+    <Resource Include="Resources\Icons\bank-exchange_small.png" />
+    <Resource Include="Resources\Icons\bank_large.png" />
+    <Resource Include="Resources\Icons\bank_small.png" />
+    <Resource Include="Resources\Icons\book_large.png" />
+    <Resource Include="Resources\Icons\book_small.png" />
+    <Resource Include="Resources\Icons\buildings_large.png" />
+    <Resource Include="Resources\Icons\buildings_small.png" />
+    <Resource Include="Resources\Icons\button-add-browse_large.png" />
+    <Resource Include="Resources\Icons\button-add-browse_small.png" />
+    <Resource Include="Resources\Icons\button-add_large.png" />
+    <Resource Include="Resources\Icons\button-add_small.png" />
+    <Resource Include="Resources\Icons\button-cancel_large.png" />
+    <Resource Include="Resources\Icons\button-cancel_small.png" />
+    <Resource Include="Resources\Icons\button-error_large.png" />
+    <Resource Include="Resources\Icons\button-error_small.png" />
+    <Resource Include="Resources\Icons\button-help_large.png" />
+    <Resource Include="Resources\Icons\button-help_small.png" />
+    <Resource Include="Resources\Icons\button-info_large.png" />
+    <Resource Include="Resources\Icons\button-info_small.png" />
+    <Resource Include="Resources\Icons\button-ok_large.png" />
+    <Resource Include="Resources\Icons\button-ok_small.png" />
+    <Resource Include="Resources\Icons\command-redo-gray_large.png" />
+    <Resource Include="Resources\Icons\command-redo-gray_small.png" />
+    <Resource Include="Resources\Icons\command-redo_large.png" />
+    <Resource Include="Resources\Icons\command-redo_small.png" />
+    <Resource Include="Resources\Icons\command-undo-gray_large.png" />
+    <Resource Include="Resources\Icons\command-undo-gray_small.png" />
+    <Resource Include="Resources\Icons\command-undo_large.png" />
+    <Resource Include="Resources\Icons\command-undo_small.png" />
+    <Resource Include="Resources\Icons\company-building_large.png" />
+    <Resource Include="Resources\Icons\company-building_small.png" />
+    <Resource Include="Resources\Icons\courthouse_large.png" />
+    <Resource Include="Resources\Icons\courthouse_small.png" />
+    <Resource Include="Resources\Icons\currency-exchange_large.png" />
+    <Resource Include="Resources\Icons\currency-exchange_small.png" />
+    <Resource Include="Resources\Icons\datev_large.png" />
+    <Resource Include="Resources\Icons\datev_small.png" />
+    <Resource Include="Resources\Icons\document-new_large.png" />
+    <Resource Include="Resources\Icons\document-new_small.png" />
+    <Resource Include="Resources\Icons\document-arrow-down_large.png" />
+    <Resource Include="Resources\Icons\document-arrow-down_small.png" />
+    <Resource Include="Resources\Icons\document-edit_large.png" />
+    <Resource Include="Resources\Icons\document-edit_small.png" />
+    <Resource Include="Resources\Icons\execute_large.png" />
+    <Resource Include="Resources\Icons\execute_small.png" />
+    <Resource Include="Resources\Icons\export-to-excel_large.png" />
+    <Resource Include="Resources\Icons\export-to-excel_small.png" />
+    <Resource Include="Resources\Icons\filter-cancel-2_large.png" />
+    <Resource Include="Resources\Icons\filter-cancel-2_small.png" />
+    <Resource Include="Resources\Icons\filter-edit_large.png" />
+    <Resource Include="Resources\Icons\filter-edit_small.png" />
+    <Resource Include="Resources\Icons\filter_large.png" />
+    <Resource Include="Resources\Icons\filter_small.png" />
+    <Resource Include="Resources\Icons\new_small.png" />
+    <Resource Include="Resources\Icons\note-text_large.png" />
+    <Resource Include="Resources\Icons\note-text_small.png" />
+    <Resource Include="Resources\Icons\note_large.png" />
+    <Resource Include="Resources\Icons\note_small.png" />
+    <Resource Include="Resources\Icons\report-book_large.png" />
+    <Resource Include="Resources\Icons\report-book_small.png" />
+    <Resource Include="Resources\Icons\report-print_large.png" />
+    <Resource Include="Resources\Icons\report-print_small.png" />
+    <Resource Include="Resources\Icons\report_large.png" />
+    <Resource Include="Resources\Icons\report_small.png" />
+    <Resource Include="Resources\Icons\review-track-changes_large.png" />
+    <Resource Include="Resources\Icons\review-track-changes_small.png" />
+    <Resource Include="Resources\Icons\save_large.png" />
+    <Resource Include="Resources\Icons\save_small.png" />
+    <Resource Include="Resources\Icons\sort-az_large.png" />
+    <Resource Include="Resources\Icons\sort-az_small.png" />
+    <Resource Include="Resources\Icons\sort-down_large.png" />
+    <Resource Include="Resources\Icons\sort-down_small.png" />
+    <Resource Include="Resources\Icons\sort-up_large.png" />
+    <Resource Include="Resources\Icons\sort-up_small.png" />
+    <Resource Include="Resources\Icons\sort-za_large.png" />
+    <Resource Include="Resources\Icons\sort-za_small.png" />
+    <Resource Include="Resources\Icons\sort_large.png" />
+    <Resource Include="Resources\Icons\sort_small.png" />
+    <Resource Include="Resources\Icons\symbol-delete_large.png" />
+    <Resource Include="Resources\Icons\symbol-delete_small.png" />
+    <Resource Include="Resources\Icons\symbol-question-mark_large.png" />
+    <Resource Include="Resources\Icons\symbol-question-mark_small.png" />
+    <Resource Include="Resources\Icons\symbol-refresh_large.png" />
+    <Resource Include="Resources\Icons\symbol-refresh_small.png" />
+    <Resource Include="Resources\Icons\table-import_large.png" />
+    <Resource Include="Resources\Icons\table-import_small.png" />
+    <Resource Include="Resources\Icons\table-row-delete_large.png" />
+    <Resource Include="Resources\Icons\table-row-delete_small.png" />
+    <Resource Include="Resources\Icons\table-row-down_large.png" />
+    <Resource Include="Resources\Icons\table-row-down_small.png" />
+    <Resource Include="Resources\Icons\table-row-edit_large.png" />
+    <Resource Include="Resources\Icons\table-row-edit_small.png" />
+    <Resource Include="Resources\Icons\table-row-extract_large.png" />
+    <Resource Include="Resources\Icons\table-row-extract_small.png" />
+    <Resource Include="Resources\Icons\table-row-insert_large.png" />
+    <Resource Include="Resources\Icons\table-row-insert_small.png" />
+    <Resource Include="Resources\Icons\table-row-new_large.png" />
+    <Resource Include="Resources\Icons\table-row-new_small.png" />
+    <Resource Include="Resources\Icons\table-row-up_large.png" />
+    <Resource Include="Resources\Icons\table-row-up_small.png" />
+    <Resource Include="Resources\Icons\tag-blue_large.png" />
+    <Resource Include="Resources\Icons\tag-blue_small.png" />
+    <Resource Include="Resources\Icons\tag-gray_large.png" />
+    <Resource Include="Resources\Icons\tag-gray_small.png" />
+    <Resource Include="Resources\Icons\tag-green_large.png" />
+    <Resource Include="Resources\Icons\tag-green_small.png" />
+    <Resource Include="Resources\Icons\tag-red_large.png" />
+    <Resource Include="Resources\Icons\tag-red_small.png" />
+    <Resource Include="Resources\Icons\tool-pencil_large.png" />
+    <Resource Include="Resources\Icons\tool-pencil_small.png" />
+    <Resource Include="Resources\Icons\trash_large.png" />
+    <Resource Include="Resources\Icons\trash_small.png" />
+    <Resource Include="Resources\Icons\user-group_large.png" />
+    <Resource Include="Resources\Icons\user-group_small.png" />
+    <Resource Include="Resources\Icons\user_large.png" />
+    <Resource Include="Resources\Icons\user_small.png" />
+    <Resource Include="Resources\Icons\view-details_large.png" />
+    <Resource Include="Resources\Icons\view-details_small.png" />
+    <Resource Include="Resources\Icons\window_large.png" />
+    <Resource Include="Resources\Icons\window_small.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Report\Resources\DataTableReportViewModel.Designer.cs">
+      <DependentUpon>DataTableReportViewModel.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Report\Resources\LinqQueryableReportViewModel.Designer.cs">
+      <DependentUpon>LinqQueryableReportViewModel.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Report\Resources\LinqQueryableReportWindow.Designer.cs">
+      <DependentUpon>LinqQueryableReportWindow.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Report\Resources\MimeTypeReportPage.Designer.cs">
+      <DependentUpon>MimeTypeReportPage.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Report\Resources\MultipleDataTableReportViewModel.Designer.cs">
+      <DependentUpon>MultipleDataTableReportViewModel.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Report\Resources\MultipleDataTableReportWindow.Designer.cs">
+      <DependentUpon>MultipleDataTableReportWindow.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Report\Resources\ReportParameterList.Designer.cs">
+      <DependentUpon>ReportParameterList.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\Authentication\WindowsLocalUserAuthenticationService.Designer.cs">
+      <DependentUpon>WindowsLocalUserAuthenticationService.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\DefaultPageControls\HierarchyListPageControl.Designer.cs">
+      <DependentUpon>HierarchyListPageControl.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\PageWindow.Designer.cs">
+      <DependentUpon>PageWindow.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\Styling\DataGridStyling.Designer.cs">
+      <DependentUpon>DataGridStyling.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\ValueConverter\EnterNumericValueConverter.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EnterNumericValueConverter.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Window\WindowViewModel.Designer.cs">
+      <DependentUpon>WindowViewModel.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Report\Resources\DataTableReportViewModel.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>DataTableReportViewModel.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Report\Resources\LinqQueryableReportViewModel.resx">
+      <LastGenOutput>LinqQueryableReportViewModel.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Report\Resources\LinqQueryableReportWindow.resx">
+      <LastGenOutput>LinqQueryableReportWindow.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Report\Resources\MimeTypeReportPage.resx">
+      <LastGenOutput>MimeTypeReportPage.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Report\Resources\MultipleDataTableReportViewModel.resx">
+      <LastGenOutput>MultipleDataTableReportViewModel.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Report\Resources\MultipleDataTableReportWindow.resx">
+      <LastGenOutput>MultipleDataTableReportWindow.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Report\Resources\ReportParameterList.resx">
+      <LastGenOutput>ReportParameterList.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Authentication\WindowsLocalUserAuthenticationService.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>WindowsLocalUserAuthenticationService.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\DefaultPageControls\HierarchyListPageControl.resx">
+      <LastGenOutput>HierarchyListPageControl.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PageWindow.resx">
+      <LastGenOutput>PageWindow.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Styling\DataGridStyling.resx">
+      <LastGenOutput>DataGridStyling.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ValueConverter\EnterNumericValueConverter.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnterNumericValueConverter.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Window\WindowViewModel.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>WindowViewModel.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
