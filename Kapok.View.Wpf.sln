@@ -16,35 +16,23 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		LinuxRelease|Any CPU = LinuxRelease|Any CPU
-		LinuxTest|Any CPU = LinuxTest|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1A8EF081-227D-4E01-A611-74D2DA05C942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A8EF081-227D-4E01-A611-74D2DA05C942}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A8EF081-227D-4E01-A611-74D2DA05C942}.LinuxRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{1A8EF081-227D-4E01-A611-74D2DA05C942}.LinuxTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A8EF081-227D-4E01-A611-74D2DA05C942}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A8EF081-227D-4E01-A611-74D2DA05C942}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E3D700D5-BDFB-4777-8E9C-53E8F943AC58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E3D700D5-BDFB-4777-8E9C-53E8F943AC58}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3D700D5-BDFB-4777-8E9C-53E8F943AC58}.LinuxRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{E3D700D5-BDFB-4777-8E9C-53E8F943AC58}.LinuxTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{E3D700D5-BDFB-4777-8E9C-53E8F943AC58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3D700D5-BDFB-4777-8E9C-53E8F943AC58}.Release|Any CPU.Build.0 = Release|Any CPU
 		{821D0A31-38B5-4536-9FE7-B771A167702C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{821D0A31-38B5-4536-9FE7-B771A167702C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{821D0A31-38B5-4536-9FE7-B771A167702C}.LinuxRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{821D0A31-38B5-4536-9FE7-B771A167702C}.LinuxTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{821D0A31-38B5-4536-9FE7-B771A167702C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{821D0A31-38B5-4536-9FE7-B771A167702C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}.LinuxRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}.LinuxRelease|Any CPU.Build.0 = Release|Any CPU
-		{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}.LinuxTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}.LinuxTest|Any CPU.Build.0 = Debug|Any CPU
 		{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
