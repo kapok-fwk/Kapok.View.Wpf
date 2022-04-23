@@ -264,7 +264,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         return PageWpfWindows[ownerPage];
     }
 
-    public override bool? ShowDialogPage(IPage page, IPage ownerPage = null)
+    public override bool? ShowDialogPage(IPage page, IPage? ownerPage = null)
     {
         CheckWindowAlreadyOpen(page);
         ConstructPageWindow(page);
@@ -333,22 +333,22 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         return view;
     }
 
-    public override IPropertyLookupView CreatePropertyLookupView(ILookupDefinition lookupDefinition, IDataDomain dataDomain, IDataSetView dataSet)
+    public override IPropertyLookupView CreatePropertyLookupView(ILookupDefinition lookupDefinition, IDataDomain dataDomain, IDataSetView? dataSet)
     {
         return new PropertyLookupView(lookupDefinition, dataDomain, dataSet);
     }
 
-    public override IDataSetView<TEntry> CreateDataSetView<TEntry>(IDataDomainScope dataDomainScope, IDao<TEntry> repository = null)
+    public override IDataSetView<TEntry> CreateDataSetView<TEntry>(IDataDomainScope dataDomainScope, IDao<TEntry>? repository = null)
     {
         return new WpfDataSetView<TEntry>(this, dataDomainScope, repository);
     }
 
-    public override IHierarchyDataSetView<TEntry> CreateHierarchyDataSetView<TEntry>(IDataDomainScope dataDomainScope, IDao<TEntry> repository = null)
+    public override IHierarchyDataSetView<TEntry> CreateHierarchyDataSetView<TEntry>(IDataDomainScope dataDomainScope, IDao<TEntry>? repository = null)
     {
         return new HierarchyDataSetView<TEntry>(this, dataDomainScope, repository);
     }
 
-    public override void ShowInfoMessage(string message, string title = null, IPage ownerPage = null)
+    public override void ShowInfoMessage(string message, string? title = null, IPage? ownerPage = null)
     {
         if (title == null)
             title = WindowViewModelRes.InfoGuiMessage_Caption;
@@ -362,7 +362,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
-    public override void ShowErrorMessage(string message, string title = null, IPage ownerPage = null, Exception exception = null)
+    public override void ShowErrorMessage(string message, string? title = null, IPage? ownerPage = null, Exception? exception = null)
     {
         if (exception != null)
         {
@@ -394,7 +394,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         }
     }
 
-    public override bool ShowYesNoQuestionMessage(string message, string title = null, IPage ownerPage = null)
+    public override bool ShowYesNoQuestionMessage(string message, string? title = null, IPage? ownerPage = null)
     {
         if (title == null)
             title = WindowViewModelRes.YesNoQuestionGuiMessage_Caption;
@@ -413,7 +413,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         return result == MessageBoxResult.Yes;
     }
 
-    public override bool ShowConfirmMessage(string message, string title = null, IPage ownerPage = null)
+    public override bool ShowConfirmMessage(string message, string? title = null, IPage? ownerPage = null)
     {
         if (title == null)
             title = WindowViewModelRes.ConfirmGuiMessage_Caption;
@@ -525,7 +525,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         dataGrid.BeginEdit();
     }
 
-    public override string OpenOpenFileDialog(string title, string fileMask, IPage? ownerPage = null)
+    public override string? OpenOpenFileDialog(string title, string fileMask, IPage? ownerPage = null)
     {
         var dialog = new Microsoft.Win32.OpenFileDialog();
         dialog.Title = title;
@@ -539,7 +539,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         return dialog.FileName;
     }
 
-    public override string OpenSaveFileDialog(string title, string fileMask, IPage? ownerPage = null)
+    public override string? OpenSaveFileDialog(string title, string fileMask, IPage? ownerPage = null)
     {
         var dialog = new Microsoft.Win32.SaveFileDialog();
         dialog.Title = title;

@@ -16,5 +16,7 @@
 
 		<Authors>Samuel Neff</Authors>
     <PackageTags>C#,ASP.NET,Mime</PackageTags>
+	<SignAssembly>True</SignAssembly>
+	<AssemblyOriginatorKeyFile>..\..\kapok-fwk.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 </Project>
