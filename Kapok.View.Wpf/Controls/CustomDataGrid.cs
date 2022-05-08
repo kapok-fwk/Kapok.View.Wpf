@@ -190,6 +190,33 @@ public class CustomDataGrid : DataGrid
 
     private void ColumnsSourceObject_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
     {
+        if (this.IsEditing())
+        {
+            // At this point we have to make sure to exit the edit mode. Otherwise we will get into
+            // trouble with the DataGrid 'CellAutomationValueHolder':
+            //   The DataGrid caches the cells with 'CellAutomationValueHolder' in
+            //   DataGrid._editingCellAutomationValueHolders. This class holds a reference to the
+            //   DataGridColumn.
+            //
+            //   When we would not make sure to end the editing on row level (which clears
+            //   the cache through method 'DataGrid.ReleaseCellAutomationValueHolders'),
+            //   we would cause an inconsistency in the edit cache.
+            //
+            //   This might then lead to a crash because the 'CellAutomationValueHolder' class
+            //   requires 'DataGridColumn.DataGridOwner' to be set.
+            //
+            //   See as well: https://github.com/dotnet/wpf/pull/6553
+
+            if (CurrentCell.IsValid)
+            {
+                this.CommitEdit(DataGridEditingUnit.Row, true);
+            }
+            else
+            {
+                this.CancelEdit(DataGridEditingUnit.Row);
+            }
+        }
+
         switch (e.Action)
         {
             case NotifyCollectionChangedAction.Add:
@@ -406,7 +433,7 @@ public class CustomDataGrid : DataGrid
                 column.DisplayIndex = oldColumn.DisplayIndex;
         }
 
-        object errorTemplate = null;
+        object? errorTemplate = null;
         if (Application.Current.Resources.Contains(ErrorTemplateDefaultResourceName))
         {
             errorTemplate = (ControlTemplate)Application.Current.Resources[ErrorTemplateDefaultResourceName];
@@ -593,19 +620,18 @@ public class CustomDataGrid : DataGrid
         // update style
         if (column is DataGridComboBoxColumn || column is DataGridLookupComboBoxColumn)
         {
-            if (Application.Current.Resources.Contains(ComboBoxColumnCellStyleResourceName))
+            if (Application.Current.Resources.Contains(ComboBoxColumnCellStyleResourceName) &&
+                Application.Current.Resources[ComboBoxColumnCellStyleResourceName] is Style comboBoxStyle)
             {
-                var comboBoxStyle = (Style) Application.Current.Resources[ComboBoxColumnCellStyleResourceName];
-                if (comboBoxStyle != null)
-                    column.CellStyle = comboBoxStyle;
+                column.CellStyle = comboBoxStyle;
             }
+#if DEBUG
             else
             {
-#if DEBUG
                 Debug.WriteLine(
-                    $"Could not find the style {ComboBoxColumnCellStyleResourceName} required for the lookup combo box.");
-#endif
+                    $"Could not find the style {ComboBoxColumnCellStyleResourceName} of type Style required for the lookup combo box.");
             }
+#endif
         }
 
         // enum translation
