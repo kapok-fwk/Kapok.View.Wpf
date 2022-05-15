@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{58
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MimeTypes", "MimeTypeMap\MimeTypes.csproj", "{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestApps", "TestApps", "{A756DC82-1FAC-48F7-AC10-6945B455E20C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoWpfApp", "ToDoWpfApp\ToDoWpfApp.csproj", "{593A513B-E58E-4981-BE81-58B5C3BC5F30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +39,10 @@ Global
 		{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{593A513B-E58E-4981-BE81-58B5C3BC5F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{593A513B-E58E-4981-BE81-58B5C3BC5F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{593A513B-E58E-4981-BE81-58B5C3BC5F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{593A513B-E58E-4981-BE81-58B5C3BC5F30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,6 +50,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E3D700D5-BDFB-4777-8E9C-53E8F943AC58} = {5832E474-15E0-4FC3-96EC-AE84EFFB9563}
 		{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E} = {5832E474-15E0-4FC3-96EC-AE84EFFB9563}
+		{593A513B-E58E-4981-BE81-58B5C3BC5F30} = {A756DC82-1FAC-48F7-AC10-6945B455E20C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {465AC56B-9B47-46FB-9DF7-4F07097969E0}
