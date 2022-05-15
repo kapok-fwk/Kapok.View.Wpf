@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.2 (2022-05-15)
 
 - :bug: *fix* application crash "Value cannot be null. (Parameter 'element')" when changing a ListView of a ListPage while editing an entity in a CustomDataGrid control
 
