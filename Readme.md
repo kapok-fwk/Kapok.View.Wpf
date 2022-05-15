@@ -12,9 +12,7 @@ License
 -------
 The Kapok.View.Wpf library is licensed under the [MIT license](LICENSE).
 
-Some parts of this 
-
-This library uses libraries, ressources or shared code which are under other license terms:
+This library uses libraries, ressources or shared code which are under other public license terms:
 * the icons are used from Axialis using the [Free, Limited, Attribution License](https://www.axialis.com/icongenerator/iconset-license.html#free) ([CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/)). No changes have been made.
 * the library [Infralution.Localization.Wpf](https://www.codeproject.com/Articles/35159/WPF-Localization-Using-RESX-Files) is under the [CPOL](https://www.codeproject.com/info/cpol10.aspx) license.
 * the library *Kapok.View.Wpf.AvalonDock* uses the [AvalonDock](https://github.com/Dirkster99/AvalonDock) which is under the [Microsoft Public License](https://github.com/Dirkster99/AvalonDock/blob/master/LICENSE)
