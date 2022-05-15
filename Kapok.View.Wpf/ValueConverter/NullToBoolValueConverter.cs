@@ -9,7 +9,7 @@ namespace Kapok.View.Wpf;
 /// </summary>
 /// <remarks>
 /// If parameter is not specified or specified with null:
-/// if passed value is null then true is returned, otherwise false. 
+/// if passed value is null then true is returned, otherwise false.
 /// If parameter is specified then inversion is done:
 /// if passed value is null then false is returned, otherwise true.
 /// </remarks>
