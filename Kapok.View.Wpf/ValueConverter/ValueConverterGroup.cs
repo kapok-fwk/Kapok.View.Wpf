@@ -1,13 +1,13 @@
-﻿using System.Collections;
+﻿// Source: https://www.codeproject.com/Articles/15061/Piping-Value-Converters-in-WPF
+// License: The Code Project Open License (CPOL)
+// Author: Josh Smith (USA)
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Windows.Data;
 
 namespace Kapok.View.Wpf;
-// Source: https://www.codeproject.com/Articles/15061/Piping-Value-Converters-in-WPF
-// License: The Code Project Open License (CPOL)
-// Author: Josh Smith (USA)
 
 /// <summary>
 /// A value converter which contains a list of IValueConverters and invokes their Convert or ConvertBack methods

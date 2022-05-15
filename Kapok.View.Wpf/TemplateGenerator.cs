@@ -1,8 +1,10 @@
-﻿using System.Windows;
+﻿// Source: https://www.codeproject.com/Tips/808808/Create-Data-and-Control-Templates-using-Delegates
+// License: The Code Project Open License (CPOL)
+// Author: Paulo Zemek (USA)
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Kapok.View.Wpf;
-// source: https://www.codeproject.com/Tips/808808/Create-Data-and-Control-Templates-using-Delegates
 
 /// <summary>
 /// Class that helps the creation of control and data templates by using delegates.
