@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kapok.View.Wpf", "Kapok.View.Wpf\Kapok.View.Wpf.csproj", "{1A8EF081-227D-4E01-A611-74D2DA05C942}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kapok.View.Wpf", "src\Kapok.View.Wpf\Kapok.View.Wpf.csproj", "{1A8EF081-227D-4E01-A611-74D2DA05C942}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infralution.Localization.Wpf", "Infralution.Localization.Wpf\Infralution.Localization.Wpf.csproj", "{E3D700D5-BDFB-4777-8E9C-53E8F943AC58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infralution.Localization.Wpf", "src\Infralution.Localization.Wpf\Infralution.Localization.Wpf.csproj", "{E3D700D5-BDFB-4777-8E9C-53E8F943AC58}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kapok.View.Wpf.AvalonDock", "Kapok.View.Wpf.AvalonDock\Kapok.View.Wpf.AvalonDock.csproj", "{821D0A31-38B5-4536-9FE7-B771A167702C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kapok.View.Wpf.AvalonDock", "src\Kapok.View.Wpf.AvalonDock\Kapok.View.Wpf.AvalonDock.csproj", "{821D0A31-38B5-4536-9FE7-B771A167702C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{5832E474-15E0-4FC3-96EC-AE84EFFB9563}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MimeTypes", "MimeTypeMap\MimeTypes.csproj", "{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MimeTypes", "src\MimeTypeMap\MimeTypes.csproj", "{C2E49A96-CCED-42CD-AE8B-A56B489A2F4E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestApps", "TestApps", "{A756DC82-1FAC-48F7-AC10-6945B455E20C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoWpfApp", "ToDoWpfApp\ToDoWpfApp.csproj", "{593A513B-E58E-4981-BE81-58B5C3BC5F30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoWpfApp", "src\ToDoWpfApp\ToDoWpfApp.csproj", "{593A513B-E58E-4981-BE81-58B5C3BC5F30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kapok.View.Wpf.UnitTest", "Kapok.View.Wpf.UnitTest\Kapok.View.Wpf.UnitTest.csproj", "{1B5BB7C0-FC66-44B4-98CA-75D545ED96B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kapok.View.Wpf.UnitTest", "src\Kapok.View.Wpf.UnitTest\Kapok.View.Wpf.UnitTest.csproj", "{1B5BB7C0-FC66-44B4-98CA-75D545ED96B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
