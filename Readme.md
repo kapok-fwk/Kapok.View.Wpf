@@ -1,6 +1,6 @@
 Kapok.View.Wpf
 ==============
-A client implementation for Windows Presentation Foundation (WPF) for Kapok.
+A client implementation of Windows Presentation Foundation (WPF) for Kapok.
 
 &nbsp;
 
