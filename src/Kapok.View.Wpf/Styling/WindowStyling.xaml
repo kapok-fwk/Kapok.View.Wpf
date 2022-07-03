@@ -80,6 +80,46 @@
                 <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
             </DataTemplate>
         </vmwpf:MenuItemTemplateSelector.TableDataButtonTemplate>
+        <vmwpf:MenuItemTemplateSelector.MenuButtonTemplate>
+            <DataTemplate>
+                <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                <RibbonMenuButton Label="{Binding Label, Converter={StaticResource CaptionConverter}, Mode=OneTime}"
+                                  ToolTipTitle="{Binding Label, Converter={StaticResource CaptionConverter}, Mode=OneTime}"
+                                  ToolTipDescription="{Binding Description, Converter={StaticResource CaptionConverter}, Mode=OneTime}"
+                                  SmallImageSource="{Binding Image, Converter={StaticResource ImageNameToImageSourceConverter}, ConverterParameter='Small', Mode=OneTime}"
+                                  KeyTip="{Binding RibbonKeyTip, Mode=OneTime}"
+                                  Visibility="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                  ItemsSource="{Binding SubMenuItems, Mode=OneTime}">
+                    <RibbonMenuButton.LargeImageSource>
+                        <MultiBinding Converter="{StaticResource ImageNameToImageSourceConverter}" ConverterParameter="Large" Mode="OneTime">
+                            <Binding Path="Image" Mode="OneTime" />
+                            <Binding Path="ImageIsBig" Mode="OneTime" />
+                        </MultiBinding>
+                    </RibbonMenuButton.LargeImageSource>
+                    <RibbonMenuButton.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Label, Converter={StaticResource CaptionConverter}, Mode=OneTime}"/>
+                            <!--
+                            Not handled properties:
+
+                            ToolTipTitle="{Binding Label, Converter={StaticResource CaptionConverter}, Mode=OneTime}"
+                            ToolTipDescription="{Binding Description, Converter={StaticResource CaptionConverter}, Mode=OneTime}"
+                            ImageSource="{Binding Image, Converter={StaticResource ImageNameToImageSourceConverter}, ConverterParameter='Small', Mode=OneTime}"
+                            KeyTip="{Binding RibbonKeyTip, Mode=OneTime}"
+                            -->
+                        </DataTemplate>
+                    </RibbonMenuButton.ItemTemplate>
+                    <RibbonMenuButton.ItemContainerStyle>
+                        <Style TargetType="{x:Type MenuItem}">
+                            <Setter Property="Command" Value="{Binding Path=., Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}"/>
+                            <Setter Property="Visibility" Value="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <Setter Property="ItemsSource" Value="{Binding SubMenuItems, Mode=OneTime}"/>
+                        </Style>
+                    </RibbonMenuButton.ItemContainerStyle>
+                </RibbonMenuButton>
+                <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+            </DataTemplate>
+        </vmwpf:MenuItemTemplateSelector.MenuButtonTemplate>
     </vmwpf:MenuItemTemplateSelector>
 
     <Style x:Key="InteractWindow" TargetType="Window" BasedOn="{StaticResource Window}">
