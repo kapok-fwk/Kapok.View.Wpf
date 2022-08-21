@@ -3,7 +3,7 @@ using Res = Kapok.View.Wpf.Resources.Authentication.WindowsLocalUserAuthenticati
 
 namespace Kapok.Acl.Windows;
 
-public sealed class WindowsLocalUserAuthenticationService : IAuthenticationService
+public sealed class WindowsLocalUserAuthenticationService : ISilentAuthenticationService, IAuthenticationService
 {
     public string ProviderName => "WindowsLocalUser";
 
@@ -56,6 +56,24 @@ public sealed class WindowsLocalUserAuthenticationService : IAuthenticationServi
     Task IAuthenticationService.Logout()
     {
         return Task.CompletedTask;
+    }
+
+    #endregion
+
+    #region ISilentAuthenticationService
+
+    async Task<bool> ISilentAuthenticationService.SilentLogin()
+    {
+        try
+        {
+            await Login();
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     #endregion
