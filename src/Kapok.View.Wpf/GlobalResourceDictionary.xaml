@@ -2,13 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="Controls/DataGridColumnHeaderWithFilterStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Kapok.View.WPF;component/Controls/DataGridColumnHeaderWithFilterStyle.xaml" />
 
-        <ResourceDictionary Source="Styling/FlatComboBoxStyle.xaml" />
-        <ResourceDictionary Source="Styling/WindowStyling.xaml" />
-        <ResourceDictionary Source="Styling/DataGridStyling.xaml" />
-        <ResourceDictionary Source="Styling/PageControlStyling.xaml"/>
-        <ResourceDictionary Source="Styling/CardPageStyling.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Kapok.View.WPF;component/Styling/FlatComboBoxStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Kapok.View.WPF;component/Styling/WindowStyling.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Kapok.View.WPF;component/Styling/DataGridStyling.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Kapok.View.WPF;component/Styling/PageControlStyling.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Kapok.View.WPF;component/Styling/CardPageStyling.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
