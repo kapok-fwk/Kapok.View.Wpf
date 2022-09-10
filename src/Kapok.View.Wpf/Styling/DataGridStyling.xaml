@@ -497,10 +497,10 @@
                     <StackPanel>
                         <Image Source="{Binding DataSet.ToggleEditFilterAction.Image, Converter={StaticResource ImageNameToImageSourceConverter}, ConverterParameter='Small', Mode=OneTime}" />
                         <Popup IsOpen="{Binding DataSet.ToggleEditFilterAction.IsChecked, Mode=TwoWay}" StaysOpen="False"
-                               HorizontalOffset="-2" VerticalOffset="3"
-                               Placement="Bottom" PopupAnimation="Slide"
+                               HorizontalOffset="-19" VerticalOffset="18"
+                               Placement="Left"
                                MinHeight="127" MinWidth="327"
-                               Height="167" Width="327">
+                               Height="Auto" Width="330">
                             <Border BorderBrush="#AEAFAF" BorderThickness="1" Background="White">
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -515,13 +515,15 @@
                                         <ColumnDefinition Width="7" />
                                     </Grid.ColumnDefinitions>
                                     <DataGrid Grid.Row="1" Grid.Column="1"
-                                                  ItemsSource="{Binding DataSet.FilterView.PropertyFilters, Mode=OneTime}"
-                                                  CanUserAddRows="True"
-                                                  CanUserDeleteRows="True"
-                                                  CanUserResizeRows="False"
-                                                  CanUserReorderColumns="False"
-                                                  CanUserSortColumns="False"
-                                                  AutoGenerateColumns="False">
+                                              ItemsSource="{Binding DataSet.FilterView.PropertyFilters, Mode=OneTime}"
+                                              CanUserAddRows="True"
+                                              CanUserDeleteRows="True"
+                                              CanUserResizeRows="False"
+                                              CanUserReorderColumns="False"
+                                              CanUserSortColumns="False"
+                                              AutoGenerateColumns="False"
+                                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                              Height="Auto">
                                         <DataGrid.Columns>
                                             <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
                                             <vmwpf:DataGridLookupComboBoxColumn Header="Property"
@@ -531,13 +533,13 @@
                                                                                       Path=DataContext.DataSet.FilterView.FilterablePropertiesView.View,
                                                                                       Mode=OneTime}"
                                                                                 SelectedValueBinding="{Binding Property, UpdateSourceTrigger=LostFocus}"
-                                                                                DisplayMemberPath="Name"                                                                                  
+                                                                                DisplayMemberPath="Name"
                                                                                 />
 
                                             <DataGridTextColumn Header="Value"
                                                                 Binding="{Binding Value, UpdateSourceTrigger=LostFocus}"
-                                                                Width="125"
-                                                                IsReadOnly="{Binding IsReadOnly}"/>
+                                                                Width="*"
+                                                                IsReadOnly="{Binding IsReadOnly}" />
 
                                             <DataGridTemplateColumn IsReadOnly="True">
                                                 <DataGridTemplateColumn.CellTemplate>
@@ -566,7 +568,7 @@
                                     </DataGrid>
                                     <StackPanel Grid.Row="2" Grid.Column="1"
                                                 Orientation="Horizontal" HorizontalAlignment="Right"
-                                                ResxExtension.DefaultResxName="Kapok.View.WpfResources.Styling.DataGridStyling">
+                                                ResxExtension.DefaultResxName="Kapok.View.Wpf.Resources.Styling.DataGridStyling">
                                         <Button Padding="3" Margin="0,4,4,4" Content="{Resx DataSet_EditFilterButton_Clear}" Command="{Binding DataSet.FilterView.ClearAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
                                         <Button Padding="3" Margin="0,4,4,4" Content="{Resx DataSet_EditFilterButton_Reset}" Command="{Binding DataSet.FilterView.ResetAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
                                         <Button Padding="3" Margin="0,4,4,4" Command="{Binding DataSet.FilterView.ApplyAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}">
