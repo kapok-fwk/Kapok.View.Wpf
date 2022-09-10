@@ -5,12 +5,12 @@ namespace Kapok.View.Wpf;
 
 public class MenuItemTemplateSelector : DataTemplateSelector
 {
-    public DataTemplate DefaultButtonTemplate { get; set; }
-    public DataTemplate ToggleButtonTemplate { get; set; }
-    public DataTemplate TableDataButtonTemplate { get; set; }
-    public DataTemplate MenuButtonTemplate { get; set; }
+    public DataTemplate? DefaultButtonTemplate { get; set; }
+    public DataTemplate? ToggleButtonTemplate { get; set; }
+    public DataTemplate? TableDataButtonTemplate { get; set; }
+    public DataTemplate? MenuButtonTemplate { get; set; }
 
-    public override DataTemplate SelectTemplate(object? item, DependencyObject container)
+    public override DataTemplate? SelectTemplate(object? item, DependencyObject container)
     {
         if (item != null)
         {
