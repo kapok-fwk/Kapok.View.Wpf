@@ -109,7 +109,8 @@ public class IActionToICommandConverter : IValueConverter
             }
         }
 
-        throw new InvalidOperationException("Type must be of type IAction or IAction<T>.");
+        // Object without action, return null.
+        return null;
     }
 
     private void RegisterPassCanExecuteChangeToCommand(IAction action, RelayCommand relayCommand)
