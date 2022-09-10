@@ -102,6 +102,29 @@
                 <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
             </DataTemplate>
         </vmwpf:MenuItemTemplateSelector.TableDataButtonTemplate>
+
+        <vmwpf:MenuItemTemplateSelector.MenuButtonTemplate>
+            <DataTemplate>
+                <Menu>
+                    <MenuItem Header="{Binding Label, Converter={StaticResource CaptionConverter}, Mode=OneTime}"
+                              ItemsSource="{Binding SubMenuItems}">
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter Property="Command" Value="{Binding Path=., Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}"/>
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
+                        <MenuItem.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding SubMenuItems}">
+                                <StackPanel Orientation="Horizontal" Background="Transparent">
+                                    <!--<Image Source="{Binding Image, Converter={StaticResource ImageNameToImageSourceConverter}, ConverterParameter='Small', Mode=OneTime}" />-->
+                                    <TextBlock Margin="3,0,0,0" Text="{Binding Label, Converter={StaticResource CaptionConverter}, Mode=OneTime}"/>
+                                </StackPanel>
+                            </HierarchicalDataTemplate>
+                        </MenuItem.ItemTemplate>
+                    </MenuItem>
+                </Menu>
+            </DataTemplate>
+        </vmwpf:MenuItemTemplateSelector.MenuButtonTemplate>
     </vmwpf:MenuItemTemplateSelector>
 
     <Style TargetType="TextBox">
