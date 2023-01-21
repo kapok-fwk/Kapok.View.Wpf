@@ -8,7 +8,9 @@
         xmlns:vmwpf="clr-namespace:Kapok.View.Wpf"
         mc:Ignorable="d"
         Title="{Binding Title, Mode=OneTime}"
-        Height="Auto" SizeToContent="Height" Width="450"
+        MinHeight="130" Height="Auto"
+        MinWidth="350" Width="450"
+        SizeToContent="Height"
         ResxExtension.DefaultResxName="Kapok.View.Wpf.Report.Resources.MimeTypeReportPage">
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{x:Static vmwpf:CloseThisWindowCommand.Instance}"
@@ -29,7 +31,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
@@ -46,6 +48,7 @@
                                     Margin="5,0,5,0" MinHeight="200"
                                     ParameterList="{Binding ReportParameters, Mode=OneTime}"
                                     Visibility="{Binding ShowReportParameters, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    
                                     />
 
         <Label Grid.Row="2" Grid.Column="0" Content="{Resx Key=Label_FileType}"/>
@@ -55,7 +58,7 @@
                               DisplayMemberPath="DisplayName"
                               />
 
-        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0" Orientation="Horizontal">
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0" Orientation="Horizontal">
             <StackPanel.Resources>
                 <Style TargetType="Button">
                     <Setter Property="Margin" Value="0,5,5,5" />

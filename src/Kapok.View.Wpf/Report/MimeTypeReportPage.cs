@@ -1,8 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.IO;
-using Kapok.Core;
+﻿using Kapok.Core;
 using Kapok.Report;
 using Kapok.Report.DataModel;
+using System.Collections.ObjectModel;
+using System.IO;
 using DataTableReportViewModelRes = Kapok.View.Wpf.Report.Resources.DataTableReportViewModel;
 using Res = Kapok.View.Wpf.Report.Resources.MimeTypeReportPage;
 
@@ -278,11 +278,11 @@ public sealed class MimeTypeReportPage : ReportPage<ReportProcessor<Kapok.Report
 
     public class MimeTypeViewModel
     {
-        public string MimeType { get; set; }
+        public string? MimeType { get; set; }
 
-        public string FileExtension { get; set; }
+        public string? FileExtension { get; set; }
 
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
     }
 
     private void Save()
