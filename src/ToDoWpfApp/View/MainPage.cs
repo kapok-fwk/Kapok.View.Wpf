@@ -18,7 +18,7 @@ public class MainPage : InteractivePage
         // init commands
         OpenToDoListAction = new UIOpenPageAction("OpenToDoList", typeof(Tasks), ViewDomain);
     }
-    
+
     [MenuItem, Display(Name = "Open ToDo List")]
     public IAction OpenToDoListAction { get; }
 
