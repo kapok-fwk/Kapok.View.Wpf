@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
 
     <PackageId>Kapok.View.Wpf</PackageId>
-    <Version>0.1.2</Version>
+    <Version>0.1.4</Version>
     <Authors>Kapok Framework Community</Authors>
     <RepositoryUrl>https://github.com/kapok-fwk/kapok-fwk</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -162,7 +162,7 @@
     <PackageReference Include="Kapok.Core" Version="0.1.4" />
     <PackageReference Include="Kapok.Report" Version="0.1.4" />
     <PackageReference Include="Kapok.View" Version="0.1.4" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
   </ItemGroup>
 
   <ItemGroup>

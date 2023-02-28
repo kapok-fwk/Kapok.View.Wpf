@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.1.4 (2023-02-28)
+
+- :tada: *feat* support silent authentication from Kapok.Acl.Windows.WindowsLocalUserAuthenticationService close #2
+- :tada: *feat* add support for RibbonMenuButton with sub-menu-items to the 4th level
+- :tada: *feat* add calendar images
+- :tada: *feat* add support for Menus in Toolbar (including PopupListPage)
+
+- :dizzy: *UX* improve EditDataGridFilter design
+- :dizzy: *UX* improve MimeTypeReportPageWindow layout
+
+- :rocket: *change* use optimistic behavior in IActionToICommandConverter
+- :rocket: dependency upgrade
+
+- :bug: *fix* resource reference when using in source in other projects
+- :bug: *fix* button translation
+- :bug: *fix* report parameter binding
+
 ## 0.1.2 (2022-05-15)
 
 - :bug: *fix* application crash "Value cannot be null. (Parameter 'element')" when changing a ListView of a ListPage while editing an entity in a CustomDataGrid control
