@@ -102,7 +102,7 @@ public class EnumValueViewModel : INotifyPropertyChanged
 [ValueConversion(typeof(Enum), typeof(IEnumerable<EnumValueViewModel>))]
 public class EnumToCollectionConverter : MarkupExtension, IValueConverter
 {
-    private readonly List<EnumValueViewModel> _cachedEnumValueList;
+    private readonly List<EnumValueViewModel>? _cachedEnumValueList;
 
     public EnumToCollectionConverter()
     {
@@ -141,7 +141,7 @@ public class EnumToCollectionConverter : MarkupExtension, IValueConverter
         return list;
     }
 
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
     {
         if (_cachedEnumValueList != null)
         {
@@ -166,7 +166,7 @@ public class EnumToCollectionConverter : MarkupExtension, IValueConverter
         }
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return null;
     }
