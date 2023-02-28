@@ -26,19 +26,19 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3.3.0
       with:
         fetch-depth: 0
 
     # Install the .NET Core workload
     - name: Install .NET Core
-      uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v3.0.0
       with:
         dotnet-version: 6.0.x
 
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v1.3.1
 
     - name: Add Kapok package source
       run: dotnet nuget add source --username leo-schick --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name kapok-fwk "https://nuget.pkg.github.com/kapok-fwk/index.json"
