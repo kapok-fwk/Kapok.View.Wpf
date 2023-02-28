@@ -10,7 +10,7 @@ namespace Kapok.View.Wpf.Report;
 
 public sealed class MimeTypeReportPage : ReportPage<ReportProcessor<Kapok.Report.Model.Report>, Kapok.Report.Model.Report>
 {
-    private MimeTypeViewModel _selectedMimeType;
+    private MimeTypeViewModel? _selectedMimeType;
     private readonly ReportEngine _reportEngine;
 
     private const string MimeTypeExcel2007 = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -258,7 +258,7 @@ public sealed class MimeTypeReportPage : ReportPage<ReportProcessor<Kapok.Report
 
     public bool IsDesignable { get; }
 
-    public MimeTypeViewModel SelectedMimeType
+    public MimeTypeViewModel? SelectedMimeType
     {
         get => _selectedMimeType;
         set => SetProperty(ref _selectedMimeType, value);
