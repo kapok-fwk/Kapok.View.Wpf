@@ -157,7 +157,7 @@ public class CustomDataGrid : DataGrid
 
     public ObservableCollection<ColumnPropertyView> ColumnsSource
     {
-        get => (ObservableCollection<ColumnPropertyView>) GetValue(ColumnsSourceProperty);
+        get => (ObservableCollection<ColumnPropertyView>)GetValue(ColumnsSourceProperty);
         set => SetValue(ColumnsSourceProperty, value);
     }
 
@@ -259,7 +259,7 @@ public class CustomDataGrid : DataGrid
 
     public IDictionary DrillDownActionDictionary
     {
-        get => (IDictionary) GetValue(DrillDownActionDictionaryProperty);
+        get => (IDictionary)GetValue(DrillDownActionDictionaryProperty);
         set => SetValue(DrillDownActionDictionaryProperty, value);
     }
 
@@ -291,7 +291,7 @@ public class CustomDataGrid : DataGrid
     {
         // START_NOTE: party copied from class DataGridColumn, method: internal static DataGridColumn CreateDefaultColumn(ItemPropertyInfo itemProperty)
         Debug.Assert(columnPropertyView != null && columnPropertyView.PropertyInfo != null, "columnPropertyView and/or its PropertyType member cannot be null");
-            
+
         DataGridColumn? dataGridColumn = null;
         DataGridComboBoxColumn? comboBoxColumn = null;
         Type propertyType = columnPropertyView.PropertyInfo.PropertyType;
@@ -370,7 +370,7 @@ public class CustomDataGrid : DataGrid
         }
         else
         {
-            isReadOnly = (bool) GetValue(IsReadOnlyProperty);
+            isReadOnly = (bool)GetValue(IsReadOnlyProperty);
         }
 
         GenerateDataGridColumnExtension(ref dataGridColumn, columnPropertyView, isReadOnly);
@@ -524,7 +524,7 @@ public class CustomDataGrid : DataGrid
             // use lookup field
             var newLookupComboBoxColumn = new DataGridLookupComboBoxColumn();
             newLookupComboBoxColumn.ItemsSourceBinding = new Binding(
-                $"{((Binding) LookupItemsSource).Path?.Path}[{propertyView.PropertyInfo.Name}].View")
+                $"{((Binding)LookupItemsSource).Path?.Path}[{propertyView.PropertyInfo.Name}].View")
             {
                 Source = DataContext,
                 Mode = BindingMode.OneTime
@@ -848,7 +848,11 @@ public class CustomDataGrid : DataGrid
                 var column = displayColumns[columnDataIndex];
                 if (!column.IsReadOnly)
                 {
-                    column.OnPastingCellClipboardContent(Items[i], rowData[rowDataIndex][columnDataIndex]);
+                    object cellValue = rowData[rowDataIndex][columnDataIndex];
+
+                    // here we have to fix the bug
+                    // https://github.com/kapok-fwk/Kapok.View.Wpf/issues/1
+                    column.OnPastingCellClipboardContent(Items[i], cellValue);
                 }
             }
 
