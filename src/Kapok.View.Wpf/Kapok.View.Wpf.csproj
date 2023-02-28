@@ -159,9 +159,9 @@
 
   <ItemGroup>
     <PackageReference Include="Kapok.Acl" Version="0.1.1" />
-    <PackageReference Include="Kapok.Core" Version="0.1.1" />
-    <PackageReference Include="Kapok.Report" Version="0.1.1" />
-    <PackageReference Include="Kapok.View" Version="0.1.1" />
+    <PackageReference Include="Kapok.Core" Version="0.1.4" />
+    <PackageReference Include="Kapok.Report" Version="0.1.4" />
+    <PackageReference Include="Kapok.View" Version="0.1.4" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
   </ItemGroup>
 

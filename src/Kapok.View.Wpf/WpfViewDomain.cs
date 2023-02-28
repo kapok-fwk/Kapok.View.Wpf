@@ -21,7 +21,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
 {
     private static readonly Dictionary<Type, Func<Window>> PageWpfWindowConstructors = new();
     private static readonly Dictionary<Type, Type> PageWpfControlTypes = new();
-    private readonly Dictionary<IPage, ICollection<IPage>> _pageContainer = new(); // key = owning page, value = collection with pages the page has in its container. A page can only have one container
+    private readonly Dictionary<IPage, IEnumerable<IPage>> _pageContainer = new(); // key = owning page, value = collection with pages the page has in its container. A page can only have one container
     protected static readonly Dictionary<IPage, Window> PageWpfWindows = new();
 
     public static void RegisterPageWpfWindowConstructor<TPage>(Func<Window> constructWindow)
@@ -254,7 +254,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         ).FirstOrDefault();
         if (owingPageContainer != null)
         {
-            // TODO: here we do not have a recursion check to prevent endless loops!
+            // NOTE: here we do not have a recursion check to prevent endless loops
             return GetOwnerWindow(owingPageContainer);
         }
 
@@ -277,7 +277,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         return PageWpfWindows[page].ShowDialog();
     }
 
-    public override void RegisterPageContainer(IPage owningPage, ICollection<IPage> pageContainer)
+    public override void RegisterPageContainer(IPage owningPage, IEnumerable<IPage> pageContainer)
     {
         if (_pageContainer.ContainsKey(owningPage))
             throw new ArgumentException("There is already a page container registered for this page", nameof(owningPage));
@@ -292,7 +292,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         if (!_pageContainer.ContainsKey(owningPage))
         {
 #if DEBUG
-                throw new ArgumentException("There is no page container registered for this page", nameof(owningPage));
+            throw new ArgumentException("There is no page container registered for this page", nameof(owningPage));
 #else
             return;
 #endif
@@ -306,11 +306,17 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         var pageInPageContainer = _pageContainer.Values.FirstOrDefault(pc => pc.Contains(page));
         if (pageInPageContainer != null)
         {
-            if (page is Kapok.View.Page pageObject)
+            if (page is Page pageObject)
             {
                 pageObject.RaiseClosed();
             }
-            pageInPageContainer.Remove(page);
+
+            // remove the page from the container if the container is assignable from ICollection<IPage>
+            if (pageInPageContainer is ICollection<IPage> collection)
+            {
+                collection.Remove(page);
+            }
+
             return;
         }
 
@@ -318,7 +324,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         {
             // we use optimistic behavior here; the page will be closed nevertheless
 #if DEBUG
-                Debug.WriteLine("The page does not have an window registered to it, can not close the window!");
+            Debug.WriteLine("The page does not have an window registered to it, can not close the window!");
 #endif
             return;
         }
