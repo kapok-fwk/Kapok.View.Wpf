@@ -6,10 +6,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Kapok.View.Wpf.Report;
-using Kapok.Core;
-using Kapok.Entity;
 using Kapok.Report.DataModel;
 using WindowViewModelRes = Kapok.View.Wpf.Resources.Window.WindowViewModel;
+using Kapok.Entity.Model;
+using Kapok.Data;
+using Kapok.BusinessLayer;
 
 namespace Kapok.View.Wpf;
 
@@ -193,7 +194,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         PageWpfWindows.Add(page, newWindow);
     }
 
-    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    private void Window_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
         if (sender is Window window)
         {
@@ -215,7 +216,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         }
     }
 
-    private void Window_Closed(object sender, EventArgs e)
+    private void Window_Closed(object? sender, EventArgs e)
     {
         if (sender is Window window)
         {
@@ -564,24 +565,11 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
             throw new ArgumentException(
                 $"The parameter {nameof(model)} must be assignable to the type {typeof(Kapok.Report.Model.Report).FullName}.");
 
-        IPage page;
-
-        if (model is Kapok.Report.Model.LinqQueryableReport linqQueryableReport)
-        {
-            page = new LinqQueryableReportPage(linqQueryableReport, this);
-        }
-        else if (model is Kapok.Report.Model.MultipleDataTableReport multipleDataTableReport)
-        {
-            page = new MultipleDataTableReportPage(multipleDataTableReport, this);
-        }
-        else
-        {
-            page = new MimeTypeReportPage(
-                reportModel,
-                dataDomain,
-                reportLayout as ReportLayout,
-                this);
-        }
+        var page = new MimeTypeReportPage(
+            reportModel,
+            dataDomain,
+            reportLayout as ReportLayout,
+            this);
 
         var result = ownerPage == null ? page.ShowDialog() : page.ShowDialog(ownerPage);
         return result ?? false;
@@ -596,7 +584,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         });
     }
 
-    public override void BusinessLayerMessageEventToSingleUIMessage(object businessLayerObject, ReportBusinessLayerMessageEventArgs eventArgs)
+    public override void BusinessLayerMessageEventToSingleUIMessage(object? businessLayerObject, ReportBusinessLayerMessageEventArgs eventArgs)
     {
         switch (eventArgs.Message.Severity)
         {

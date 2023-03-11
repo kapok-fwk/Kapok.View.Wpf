@@ -1,12 +1,7 @@
 ﻿using Kapok.Entity;
 using Kapok.Report.Model;
-using System.Collections;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Windows.Controls;
 
 namespace Kapok.View.Wpf.Report;
 
@@ -16,19 +11,9 @@ public class ReportParameterViewModel : EditableEntityBase
     {
         ReportParameter = reportParameter;
 
-        if (reportParameter.DefaultValueList != null)
+        if (reportParameter.DefaultIterativeValues != null)
         {
-            var type = reportParameter.DefaultValueList.GetType();
-
-            if (type == typeof(FixedValueList))
-            {
-                FixedValueList valueList = (FixedValueList) reportParameter.DefaultValueList;
-                ProposalValues = new List<object>(valueList.Values);
-            }
-            else
-            {
-                throw new NotSupportedException($"The report parameter has a reference to a default value list from the type {type} which is not supported in this class.");
-            }
+            ProposalValues = new List<object>(reportParameter.DefaultIterativeValues);
         }
     }
 
@@ -60,7 +45,7 @@ public class ReportParameterViewModel : EditableEntityBase
         }
     }
 
-    public List<object> ProposalValues { get; }
+    public List<object>? ProposalValues { get; }
 
     protected override void ValidateProperty(object? value, [CallerMemberName] string? propertyName = null)
     {

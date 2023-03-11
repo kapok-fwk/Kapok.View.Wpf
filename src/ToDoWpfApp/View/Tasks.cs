@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Kapok.Core;
+using Kapok.Data;
 using Kapok.View;
 using ToDoWpfApp.DataModel;
 

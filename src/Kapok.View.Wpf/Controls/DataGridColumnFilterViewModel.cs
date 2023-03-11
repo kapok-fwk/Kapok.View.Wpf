@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
-using Kapok.Core;
+using Kapok.BusinessLayer;
 
 namespace Kapok.View.Wpf;
 
@@ -41,7 +41,7 @@ public class DataGridColumnFilterViewModel : INotifyPropertyChanged, INotifyData
         }
     }
 
-    private void Filter_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    private void Filter_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         bool addFilter;
         bool removeFilter;
@@ -204,7 +204,7 @@ public class DataGridColumnFilterViewModel : INotifyPropertyChanged, INotifyData
         }
     }
 
-    private void PropertyFilter_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    private void PropertyFilter_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(IPropertyFilterStringFilter.FilterString))
         {
@@ -212,7 +212,7 @@ public class DataGridColumnFilterViewModel : INotifyPropertyChanged, INotifyData
         }
     }
 
-    private void PropertyFilter_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
+    private void PropertyFilter_ErrorsChanged(object? sender, DataErrorsChangedEventArgs e)
     {
         if (e.PropertyName == nameof(IPropertyFilterStringFilter.FilterString))
         {

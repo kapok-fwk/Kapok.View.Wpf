@@ -1,4 +1,4 @@
-﻿using Kapok.Core;
+﻿using Kapok.Data;
 using Kapok.Report;
 using Kapok.Report.DataModel;
 using System.Collections.ObjectModel;

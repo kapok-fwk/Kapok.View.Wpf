@@ -1,4 +1,5 @@
-﻿using Kapok.Core;
+﻿using Kapok.Data;
+using Kapok.Module;
 using Kapok.View;
 using Kapok.View.Wpf;
 using ToDoWpfApp.DataModel;

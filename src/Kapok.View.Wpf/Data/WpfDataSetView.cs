@@ -3,16 +3,17 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq.Expressions;
 using System.Windows.Data;
-using Kapok.Core;
+using Kapok.BusinessLayer;
+using Kapok.Data;
 
 namespace Kapok.View.Wpf;
 
 public interface IWpfDataSetView : IDataSetView
 {
-    Color? GetForegroundColorOfEntity(object entity, string propertyName = null);
-    Color? GetBackgroundColorOfEntity(object entity, string propertyName = null);
-    Color? GetForegroundSelectedColorOfEntity(object entity, string propertyName = null);
-    Color? GetBackgroundSelectedColorOfEntity(object entity, string propertyName = null);
+    Color? GetForegroundColorOfEntity(object entity, string? propertyName = null);
+    Color? GetBackgroundColorOfEntity(object entity, string? propertyName = null);
+    Color? GetForegroundSelectedColorOfEntity(object entity, string? propertyName = null);
+    Color? GetBackgroundSelectedColorOfEntity(object entity, string? propertyName = null);
 }
 
 public class WpfDataSetView<TEntry> : DataSetView<TEntry>, IWpfDataSetView

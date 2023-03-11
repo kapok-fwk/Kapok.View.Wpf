@@ -1,6 +1,8 @@
 ﻿using System.Windows;
-using Kapok.Core;
+using Kapok.BusinessLayer;
+using Kapok.Data;
 using Kapok.Data.InMemory;
+using Kapok.Module;
 using Kapok.View;
 using Kapok.View.Wpf;
 using ToDoWpfApp.View;

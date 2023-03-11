@@ -8,7 +8,7 @@ namespace MimeTypes
     {
         private const string Dot = ".";
         private const string DefaultMimeType = "application/octet-stream";
-        private static readonly Lazy<IDictionary<string, string>> _mappings = new Lazy<IDictionary<string, string>>(BuildMappings);
+        private static readonly Lazy<IDictionary<string, string>> Mappings = new Lazy<IDictionary<string, string>>(BuildMappings);
 
         private static IDictionary<string, string> BuildMappings()
         {
@@ -747,7 +747,7 @@ namespace MimeTypes
                 extension = Dot + extension;
             }
 
-            return _mappings.Value.TryGetValue(extension, out string mime) ? mime : DefaultMimeType;
+            return Mappings.Value.TryGetValue(extension, out string mime) ? mime : DefaultMimeType;
         }
 
         public static string GetExtension(string mimeType, bool throwErrorIfNotFound = true)
@@ -762,7 +762,7 @@ namespace MimeTypes
                 throw new ArgumentException("Requested mime type is not valid: " + mimeType);
             }
 
-            if (_mappings.Value.TryGetValue(mimeType, out string extension))
+            if (Mappings.Value.TryGetValue(mimeType, out string extension))
             {
                 return extension;
             }

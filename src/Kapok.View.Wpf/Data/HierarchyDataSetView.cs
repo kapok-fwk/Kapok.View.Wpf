@@ -5,7 +5,8 @@ using System.Diagnostics;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Kapok.Core;
+using Kapok.BusinessLayer;
+using Kapok.Data;
 using Kapok.Entity;
 
 namespace Kapok.View.Wpf;
@@ -15,7 +16,7 @@ public class HierarchyDataSetView<TEntry> : WpfDataSetView<TEntry>, IHierarchyDa
 {
     // TODO: After 'Refresh()' the information which row is opened and closed is removed. This should be changed, maybe by using an proxy entry and a cache in the HierarchyTableDataViewModel object which is mapped back to the objects which still exist.
 
-    public HierarchyDataSetView(IViewDomain viewDomain, IDataDomainScope dataDomainScope, IDao<TEntry> repository = null)
+    public HierarchyDataSetView(IViewDomain viewDomain, IDataDomainScope dataDomainScope, IDao<TEntry>? repository = null)
         : base(viewDomain, dataDomainScope, repository)
     {
         AllEntriesCollection = new ObservableCollection<TEntry>();
@@ -90,7 +91,7 @@ public class HierarchyDataSetView<TEntry> : WpfDataSetView<TEntry>, IHierarchyDa
 
     #region Collection synchronisation
 
-    private void AllEntriesCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    private void AllEntriesCollection_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         if (_syncCollections)
             return;
@@ -193,7 +194,7 @@ public class HierarchyDataSetView<TEntry> : WpfDataSetView<TEntry>, IHierarchyDa
         }
     }
 
-    private void Collection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    private void Collection_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         if (_syncCollections)
             return;
@@ -602,7 +603,7 @@ public class HierarchyDataSetView<TEntry> : WpfDataSetView<TEntry>, IHierarchyDa
 
     #endregion
 
-    protected override void OnEntryPropertyChanged(TEntry entry, string propertyName)
+    protected override void OnEntryPropertyChanged(TEntry? entry, string propertyName)
     {
         base.OnEntryPropertyChanged(entry, propertyName);
 

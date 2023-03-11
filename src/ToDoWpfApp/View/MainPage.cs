@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Kapok.Core;
+using Kapok.Data;
 using Kapok.View;
 
 namespace ToDoWpfApp.View;

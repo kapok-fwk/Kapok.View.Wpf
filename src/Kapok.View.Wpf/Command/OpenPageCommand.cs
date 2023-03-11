@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Diagnostics;
 using System.Windows.Input;
-using Kapok.Core;
+using Kapok.BusinessLayer;
+using Kapok.Data;
 
 namespace Kapok.View.Wpf;
 
@@ -36,7 +37,7 @@ public class OpenPageCommand : IImageCommand, ITableDataCommand
         return UseTableDataReference;
     }
 
-    public OpenPageCommand(Type pageType, IViewDomain viewDomain = null, IDataDomainScope dataDomainScope = null)
+    public OpenPageCommand(Type pageType, IViewDomain? viewDomain = null, IDataDomainScope? dataDomainScope = null)
     {
         PageType = pageType;
         ViewDomain = viewDomain ?? Kapok.View.ViewDomain.Default;
@@ -45,7 +46,7 @@ public class OpenPageCommand : IImageCommand, ITableDataCommand
         _internalTableDataCommand = new TableDataImageCommand(Execute, CanExecute);
         _internalCommand = new ImageCommand(Execute, CanExecute);
     }
-    public OpenPageCommand(Type pageType, Func<bool> canExecuteFunc, IViewDomain viewDomain = null, IDataDomainScope dataDomainScope = null)
+    public OpenPageCommand(Type pageType, Func<bool> canExecuteFunc, IViewDomain? viewDomain = null, IDataDomainScope? dataDomainScope = null)
     {
         PageType = pageType;
         ViewDomain = viewDomain ?? Kapok.View.ViewDomain.Default;
@@ -58,7 +59,7 @@ public class OpenPageCommand : IImageCommand, ITableDataCommand
         _internalTableDataCommand = new TableDataImageCommand(Execute, CanExecute);
         _internalCommand = new ImageCommand(Execute, CanExecute);
     }
-    public OpenPageCommand(Type pageType, Func<IList, bool> canExecuteFunc, IViewDomain viewDomain = null, IDataDomainScope dataDomainScope = null)
+    public OpenPageCommand(Type pageType, Func<IList, bool> canExecuteFunc, IViewDomain? viewDomain = null, IDataDomainScope? dataDomainScope = null)
     {
         PageType = pageType;
         ViewDomain = viewDomain ?? Kapok.View.ViewDomain.Default;

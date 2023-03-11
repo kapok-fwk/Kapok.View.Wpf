@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using Kapok.Report.Model;
 
 namespace Kapok.View.Wpf.Report;
 
@@ -36,10 +35,10 @@ public class ReportParameterTemplateSelector : DataTemplateSelector
 
         if (vm.ProposalValues != null && vm.ProposalValues.Count > 0)
         {
-            if (vm.ReportParameter.AllowedParameterValues == AllowedParameterValueType.All)
-            {
-                return (DataTemplate)element.FindResource("ComboBoxEditableTemplate");
-            }
+            //if (vm.ReportParameter.AllowedParameterValues == AllowedParameterValueType.All)
+            //{
+            //    return (DataTemplate)element.FindResource("ComboBoxEditableTemplate");
+            //}
 
             return (DataTemplate)element.FindResource("ComboBoxTemplate");
         }

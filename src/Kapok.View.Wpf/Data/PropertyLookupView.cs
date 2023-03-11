@@ -1,18 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
-using Kapok.Core;
-using Kapok.Entity;
+using Kapok.Data;
+using Kapok.Entity.Model;
 
 namespace Kapok.View.Wpf;
 
 public class PropertyLookupView : IPropertyLookupView
 {
-    private readonly IDataSetView _dataSetView;
+    private readonly IDataSetView? _dataSetView;
     private readonly IDataDomain _dataDomain;
     private bool _isRefreshedOnce;
 
-    public PropertyLookupView(ILookupDefinition lookupDefinition, IDataDomain dataDomain, IDataSetView dataSetView = null)
+    public PropertyLookupView(ILookupDefinition lookupDefinition, IDataDomain dataDomain, IDataSetView? dataSetView = null)
     {
         _dataSetView = dataSetView;
         LookupDefinition = lookupDefinition;
@@ -43,7 +43,7 @@ public class PropertyLookupView : IPropertyLookupView
 
     public void Refresh()
     {
-        object newSource;
+        object? newSource;
 
         if (LookupDefinition.EntriesFuncDependentOnEntry)
         {

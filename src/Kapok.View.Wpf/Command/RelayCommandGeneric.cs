@@ -39,7 +39,7 @@ public class RelayCommand<T> : ICommand
     private readonly Predicate<T?>? _canExecute;
 
     // ReSharper disable once StaticMemberInGenericType
-    protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+    protected static readonly NLog.Logger Logger = LogManager.GetCurrentClassLogger();
 
     /// <summary>
     /// Initializes a new instance of the RelayCommand class that 

@@ -2,7 +2,8 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Reflection;
-using Kapok.Core;
+using Kapok.BusinessLayer;
+using Kapok.Data;
 using Kapok.Entity;
 
 namespace Kapok.View.Wpf;

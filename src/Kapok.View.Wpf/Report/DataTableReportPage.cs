@@ -27,7 +27,7 @@ public abstract class DataTableReportPage<TReportProcessor, TReportModel> : Repo
         SaveAsReportExecution(
             Res.SaveAsExcelFile_Title,
             Res.SaveAsExcelFile_SaveFileDialogFilter,
-            (baseStream) => Processor.ProcessToExcelStream(baseStream)
+            (baseStream) => Processor.ProcessToStream("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", baseStream)
         );
         DialogResult = true;
     }
@@ -42,7 +42,7 @@ public abstract class DataTableReportPage<TReportProcessor, TReportModel> : Repo
         SaveAsReportExecution(
             Res.SaveAsCsvFile_Title,
             Res.SaveAsCsvFile_SaveFileDialogFilter,
-            (baseStream) => Processor.ProcessToCsvStream(baseStream)
+            (baseStream) => Processor.ProcessToStream("text/csv", baseStream)
         );
         DialogResult = true;
     }
