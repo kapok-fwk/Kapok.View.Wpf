@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.5 (2023-04-14)
+
+- :rocket: dependency upgrade
+
 ## 0.1.4 (2023-02-28)
 
 - :tada: *feat* support silent authentication from Kapok.Acl.Windows.WindowsLocalUserAuthenticationService close #2
