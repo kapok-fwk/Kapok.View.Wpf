@@ -91,4 +91,4 @@ jobs:
         path: ./out/*.nupkg
 
     - name: Push generated package to GitHub registry
-      run: Get-ChildItem ".\out\" | foreach { dotnet nuget push $_.FullName --skip-duplicate --source kapok-fwk --api-key ${{ secrets.GITHUB_TOKEN }} }
+      run: Get-ChildItem ".\out\" | foreach { dotnet nuget push $_.FullName --skip-duplicate --source kapok-fwk --api-key ${{ secrets.KAPOK_FWK_GITHUB_TOKEN }} }
