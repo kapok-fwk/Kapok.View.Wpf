@@ -90,4 +90,4 @@ jobs:
         path: ./out/*.nupkg
 
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ./out/*.nupkg --skip-duplicate --source kapok-fwk --api-key ${{ secrets.GITHUB_TOKEN }}
+      run: dotnet nuget push "out/*.nupkg" --skip-duplicate --source kapok-fwk --api-key ${{ secrets.GITHUB_TOKEN }}
