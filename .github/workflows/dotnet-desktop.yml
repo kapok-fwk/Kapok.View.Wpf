@@ -82,6 +82,7 @@ jobs:
       run: |
         dotnet build --no-restore -c Release
         dotnet pack -c Release -o out
+        rm .\out\ToDoWpfApp.*.nupkg
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
@@ -90,4 +91,4 @@ jobs:
         path: ./out/*.nupkg
 
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push "out/*.nupkg" --skip-duplicate --source kapok-fwk --api-key ${{ secrets.GITHUB_TOKEN }}
+      run: Get-ChildItem ".\out\" | foreach { dotnet nuget push $_.FullName --skip-duplicate --source kapok-fwk --api-key ${{ secrets.GITHUB_TOKEN }} }
