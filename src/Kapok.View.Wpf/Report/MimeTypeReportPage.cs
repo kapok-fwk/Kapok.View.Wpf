@@ -211,11 +211,11 @@ public sealed class MimeTypeReportPage : ReportPage<ReportProcessor<Kapok.Report
             from m in (
                 from mimeType in supportedMimeTypes
                 join d in MimeTypeDisplayName on mimeType equals d.Key into displayNameMap
-                where MimeTypes.MimeTypeMap.GetExtension(mimeType, false) != string.Empty // NOTE: We hide here all mime types where we don't know the file extension for
+                where MimeTypeMap.GetExtension(mimeType, false) != string.Empty // NOTE: We hide here all mime types where we don't know the file extension for
                 select new MimeTypeViewModel
                 {
                     MimeType = mimeType,
-                    FileExtension = MimeTypes.MimeTypeMap.GetExtension(mimeType, false),
+                    FileExtension = MimeTypeMap.GetExtension(mimeType, false),
                     DisplayName = displayNameMap.DefaultIfEmpty().FirstOrDefault().Value
                         ?.LanguageOrDefault(ViewDomain.Culture) ?? mimeType
                 })
