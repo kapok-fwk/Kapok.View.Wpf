@@ -74,6 +74,9 @@ jobs:
   publish:
     needs: build
 
+    rules:
+      - if: github.event_name != 'pull_request'
+
     runs-on: windows-latest
 
     steps:
@@ -84,6 +87,3 @@ jobs:
 
     - name: Push generated package to GitHub registry
       run: Get-ChildItem "~/download/nuget_packages/" | foreach { dotnet nuget push $_.FullName --skip-duplicate --source kapok-fwk --api-key ${{ secrets.KAPOK_FWK_GITHUB_TOKEN }} }
-
-    rules:
-      - if: github.event_name != 'pull_request'
