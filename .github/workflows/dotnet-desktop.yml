@@ -60,6 +60,8 @@ jobs:
         dotnet build --no-restore -c $env:Configuration
         dotnet pack -c $env:Configuration -o out
         rm .\out\ToDoWpfApp.*.nupkg
+      env:
+        Configuration: ${{ matrix.configuration }}
       if: ${{ matrix.configuration }} == 'Release'
 
     - name: Upload artifacts
