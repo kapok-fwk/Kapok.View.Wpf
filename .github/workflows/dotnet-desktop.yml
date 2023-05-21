@@ -74,8 +74,7 @@ jobs:
   publish:
     needs: build
 
-    rules:
-      - if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request'
 
     runs-on: windows-latest
 
