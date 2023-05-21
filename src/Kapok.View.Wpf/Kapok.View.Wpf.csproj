@@ -170,7 +170,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infralution.Localization.Wpf\Infralution.Localization.Wpf.csproj" />
-    <ProjectReference Include="..\MimeTypeMap\MimeTypes.csproj" />
   </ItemGroup>
 
   <ItemGroup>
