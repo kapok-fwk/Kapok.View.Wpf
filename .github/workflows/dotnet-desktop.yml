@@ -71,6 +71,19 @@ jobs:
         path: ./out/*.nupkg
       if: ${{ matrix.is_release }}
 
+  publish:
+    needs: build
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: Nuget Packages
+        path: ~/download/nuget_packages/
+
     - name: Push generated package to GitHub registry
-      run: Get-ChildItem ".\out\" | foreach { dotnet nuget push $_.FullName --skip-duplicate --source kapok-fwk --api-key ${{ secrets.KAPOK_FWK_GITHUB_TOKEN }} }
-      if: github.event_name != 'pull_request' && ${{ matrix.is_release }}
+      run: Get-ChildItem "~/download/nuget_packages/" | foreach { dotnet nuget push $_.FullName --skip-duplicate --source kapok-fwk --api-key ${{ secrets.KAPOK_FWK_GITHUB_TOKEN }} }
+
+    rules:
+      - if: github.event_name != 'pull_request'
