@@ -30,8 +30,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Install the .NET Core workload
-    - name: Install .NET Core
+    - name: Setup .NET
       uses: actions/setup-dotnet@v3.0.0
       with:
         dotnet-version: 6.0.x
@@ -53,31 +52,6 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
-  publish:
-    needs: build
-
-    runs-on: windows-latest
-
-    env:
-      Solution_Name: Kapok.View.Wpf.sln
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3.3.0
-      with:
-        fetch-depth: 0
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3.0.0
-      with:
-        dotnet-version: 6.0.x
-
-    - name: Add Kapok package source
-      run: dotnet nuget add source --username leo-schick --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name kapok-fwk "https://nuget.pkg.github.com/kapok-fwk/index.json"
-
-    - name: Restore dependencies
-      run: dotnet restore
-
     - name: Build solution and generate NuGet package
       run: |
         dotnet build --no-restore -c Release
@@ -92,3 +66,4 @@ jobs:
 
     - name: Push generated package to GitHub registry
       run: Get-ChildItem ".\out\" | foreach { dotnet nuget push $_.FullName --skip-duplicate --source kapok-fwk --api-key ${{ secrets.KAPOK_FWK_GITHUB_TOKEN }} }
+      if: github.event_name != 'pull_request'
