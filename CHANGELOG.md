@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.5.6 (2023-05-21)
+
+- :rocket: *change* integrate MimeTypeMap internally, drop project MimeTypeMap (#5)
+- :rocket: dependency upgrade
+
 ## 0.1.5 (2023-04-14)
 
 - :rocket: dependency upgrade

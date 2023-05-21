@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kapok.Core" Version="0.1.5" />
+    <PackageReference Include="Kapok.Core" Version="0.1.5.2" />
     <PackageReference Include="Kapok.View" Version="0.1.5" />
   </ItemGroup>
 
