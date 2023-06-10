@@ -340,9 +340,9 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         return view;
     }
 
-    public override IPropertyLookupView CreatePropertyLookupView(ILookupDefinition lookupDefinition, IDataDomain dataDomain, IDataSetView? dataSet)
+    public override IPropertyLookupView CreatePropertyLookupView(ILookupDefinition lookupDefinition, IDataDomain dataDomain, Func<object?>? currentSelector = null)
     {
-        return new PropertyLookupView(lookupDefinition, dataDomain, dataSet);
+        return new PropertyLookupView(lookupDefinition, dataDomain, currentSelector);
     }
 
     public override IDataSetView<TEntry> CreateDataSetView<TEntry>(IDataDomainScope dataDomainScope, IDao<TEntry>? repository = null)
