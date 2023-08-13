@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.8 (2023-08-13)
+
+- :tada: add support for ColumnPropertyView.TextWrap
+- :rocket: dependency upgrade
+- :rocket: upgrade AvalonDock dependecy to 4.72.0
+- :bug: *fix* refactoring internal logic to get ContentControl class
+
 ## 0.1.5.8 (2023-06-10)
 
 - :rocket: dependency upgrade
