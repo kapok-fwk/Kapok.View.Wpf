@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,11 +12,32 @@ using WindowViewModelRes = Kapok.View.Wpf.Resources.Window.WindowViewModel;
 using Kapok.Entity.Model;
 using Kapok.Data;
 using Kapok.BusinessLayer;
+using Res = Kapok.View.Wpf.Resources.WpfViewDomain;
 
 namespace Kapok.View.Wpf;
 
 public interface IWpfViewDomain
 {
+    /// <summary>
+    /// The default page window for a page inheriting <see cref="IDialogPage"/>.
+    /// </summary>
+    Type DefaultDialogPageWindow { get; set; }
+
+    /// <summary>
+    /// The default page window for a page inheriting <see cref="ICardPage"/>.
+    /// </summary>
+    Type DefaultCardPageWindow { get; set; }
+
+    /// <summary>
+    /// The default page window for a page inheriting <see cref="IListPage"/>.
+    /// </summary>
+    Type DefaultListPageWindow { get; set; }
+
+    /// <summary>
+    /// The default page window for a page inheriting <see cref="IListPage"/> displaying a
+    /// less heavy menu than the default ribbon menu bar.
+    /// </summary>
+    Type DefaultPopupListPageWindow { get; set; }
 }
 
 public class WpfViewDomain : ViewDomain, IWpfViewDomain
@@ -24,6 +46,12 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
     private static readonly Dictionary<Type, Type> PageWpfControlTypes = new();
     private readonly Dictionary<IPage, IEnumerable<IPage>> _pageContainer = new(); // key = owning page, value = collection with pages the page has in its container. A page can only have one container
     protected static readonly Dictionary<IPage, Window> PageWpfWindows = new();
+
+    /// <summary>
+    /// A internal dictionary with weak relationship holding the Wpf ContentControl classes
+    /// for each active page in the UI.
+    /// </summary>
+    private readonly ConditionalWeakTable<IPage, ContentControl> _pageContentControl = new();
 
     public static void RegisterPageWpfWindowConstructor<TPage>(Func<Window> constructWindow)
         where TPage : class, IPage
@@ -63,7 +91,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         if (!type.IsClass)
             throw new NotSupportedException();
 
-        var constructorInfo = type.GetConstructor(new Type[0]);
+        var constructorInfo = type.GetConstructor(Type.EmptyTypes);
         if (constructorInfo == null)
             throw new NotSupportedException("The type must have an public parameterless constructor");
     }
@@ -176,7 +204,8 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
     // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
     private void CheckWindowAlreadyOpen(IPage page)
     {
-        if (PageWpfWindows.ContainsKey(page))
+        if (PageWpfWindows.ContainsKey(page) ||
+            _pageContentControl.TryGetValue(page, out _))
             throw new NotSupportedException("The page is already opened.");
         if (_pageContainer.Values.FirstOrDefault(pc => pc.Contains(page)) != null)
             throw new NotSupportedException("The page is already opened in a page container.");
@@ -221,17 +250,21 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         if (sender is Window window)
         {
             var page = PageWpfWindows.FirstOrDefault(pair => pair.Value == window).Key;
-            // TODO: add debug assert when `page == null`; should never happen
-
+#if DEBUG
+            Debug.Assert(page != null);
+#else
             if (page != null)
             {
-                if (page is Kapok.View.Page pageObject)
+#endif
+                if (page is Page pageObject)
                 {
                     pageObject.RaiseClosed();
                 }
 
                 PageWpfWindows.Remove(page);
-            }
+#if !DEBUG
+        }
+#endif
 
             // unsubscribe events
             window.Closing -= Window_Closing;
@@ -439,6 +472,16 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         return result == MessageBoxResult.OK;
     }
 
+    internal void RegisterPageContentControl(IPage page, ContentControl contentControl)
+    {
+        _pageContentControl.AddOrUpdate(page, contentControl);
+    }
+
+    internal void RemovePageContentControl(IPage page)
+    {
+        _pageContentControl.Remove(page);
+    }
+
     /// <summary>
     /// A page is rendered in a content control.
     /// 
@@ -448,33 +491,16 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
     /// The page you want to retrieve the content control from.
     /// </param>
     /// <returns>
-    /// Returns the ContentControl of the page.
-    /// When currently not rendered, null is returned.
+    /// Returns the ContentControl of the page or <c>null</c> when the ContentControl not found or not rendered yet.
     /// </returns>
-    protected virtual ContentControl? GetPageContentControl(IPage? page)
+    private ContentControl? GetPageContentControl(IPage? page)
     {
         if (page == null)
             return null;
 
-        var pageContainerPage = _pageContainer.FirstOrDefault(p => p.Value.Contains(page)).Key;
-        if (pageContainerPage != null)
-        {
-            return GetPageContentControlFromPageContainerPage(page, pageContainerPage);
-        }
-            
-        if (PageWpfWindows.ContainsKey(page))
-        {
-            var pageControlType = GetPageControlType(page.GetType());
-            return PageWpfWindows[page].FindVisualChild(pageControlType) as ContentControl;
-        }
+        if (_pageContentControl.TryGetValue(page, out ContentControl? contentControl))
+            return contentControl;
 
-        return null;
-    }
-
-    // NOTE: not supported by default --> needs to be implemented by a sub-ViewDomain implementation
-    protected virtual ContentControl? GetPageContentControlFromPageContainerPage(
-        IPage page, IPage pageContainerPage)
-    {
         return null;
     }
 
@@ -482,7 +508,11 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
     {
         var pageContentControl = GetPageContentControl(page);
         if (pageContentControl == null)
+#if DEBUG
             throw new ArgumentException("The ContentControl of page could not be found. Probably the page is not active or has no open window.", nameof(page));
+#else
+            return;  // optimistic behavior
+#endif
 
         return pageContentControl.FindVisualChild<DataGrid>("TableDataDataGrid");
     }
@@ -491,7 +521,11 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
     {
         var pageContentControl = GetPageContentControl(page);
         if (pageContentControl == null)
+#if DEBUG
             throw new ArgumentException("The ContentControl of page could not be found. Probably the page is not active or has no open window.", nameof(page));
+#else
+            return;  // optimistic behavior
+#endif
 
         // Make sure that every object with a binding
         // is saved to the view model before we start saving.
@@ -592,7 +626,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
                 ShowInfoMessage(eventArgs.Message.Text);
                 break;
             case MessageSeverity.Warning:
-                ShowInfoMessage(eventArgs.Message.Text, "Warning"); // TODO translation missing
+                ShowInfoMessage(eventArgs.Message.Text, Res.ReportWarning_Title);
                 break;
             case MessageSeverity.Error:
                 ShowErrorMessage(eventArgs.Message.Text);

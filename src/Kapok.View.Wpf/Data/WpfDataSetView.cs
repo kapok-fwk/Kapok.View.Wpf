@@ -21,7 +21,7 @@ public class WpfDataSetView<TEntry> : DataSetView<TEntry>, IWpfDataSetView
 {
     private const string NewItemPlaceholderTypeString = "{NewItemPlaceholder}";
 
-    protected readonly CollectionViewSource CollectionViewSource = new CollectionViewSource();
+    protected readonly CollectionViewSource CollectionViewSource = new();
 
     public WpfDataSetView(IViewDomain viewDomain, IDataDomainScope dataDomainScope, IDao<TEntry>? repository = null)
         : base(viewDomain, dataDomainScope, repository)
@@ -33,11 +33,11 @@ public class WpfDataSetView<TEntry> : DataSetView<TEntry>, IWpfDataSetView
         ToggleEditFilterAction = new UIToggleAction("EditFilter", ToggleEditFilter) {Image = "filter-edit"};
     }
 
-    private void FilterView_ApplyFilter(object sender, EventArgs e)
+    private void FilterView_ApplyFilter(object? sender, EventArgs e)
     {
         if (ToggleEditFilterAction.IsChecked)
             ToggleEditFilterAction.IsChecked = false;
-            
+
         if (CanSave())
             // TODO: we don't throw an message here if we shall save changes!!; they will be lost after calling Refresh()!
             throw new NotImplementedException();
@@ -66,7 +66,7 @@ public class WpfDataSetView<TEntry> : DataSetView<TEntry>, IWpfDataSetView
         }
     }
 
-    public new object Current
+    public new object? Current
     {
         get => base.Current;
         set
