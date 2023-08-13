@@ -511,7 +511,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
 #if DEBUG
             throw new ArgumentException("The ContentControl of page could not be found. Probably the page is not active or has no open window.", nameof(page));
 #else
-            return;  // optimistic behavior
+            return null;  // optimistic behavior
 #endif
 
         return pageContentControl.FindVisualChild<DataGrid>("TableDataDataGrid");
