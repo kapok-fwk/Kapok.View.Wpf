@@ -8,7 +8,7 @@ namespace ToDoWpfApp.DataModel;
 public class TaskList : EditableEntityBase
 {
     private Guid _id;
-    private string _name;
+    private string _name = string.Empty;
     private bool _isArchived;
 
     [Key]

@@ -8,7 +8,7 @@ namespace ToDoWpfApp.DataModel;
 public class Task : EditableEntityBase
 {
     private Guid _id;
-    private string _name;
+    private string _name = string.Empty;
     private string? _description;
     private DateTime? _dueDate;
     private Guid? _taskListId;
@@ -52,7 +52,7 @@ public class Task : EditableEntityBase
         set => SetValidateProperty(ref _taskListId, value);
     }
 
-    public virtual TaskList? TaskList { get; set; }
+    public TaskList? TaskList { get; set; }
 
     public override string ToString()
     {

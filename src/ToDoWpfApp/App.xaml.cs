@@ -1,10 +1,11 @@
 ﻿using System.Windows;
 using Kapok.BusinessLayer;
 using Kapok.Data;
-using Kapok.Data.InMemory;
+using Kapok.Data.EntityFrameworkCore;
 using Kapok.Module;
 using Kapok.View;
 using Kapok.View.Wpf;
+using Microsoft.EntityFrameworkCore;
 using ToDoWpfApp.View;
 
 namespace ToDoWpfApp;
@@ -66,7 +67,10 @@ public partial class App : Application
 
     private static IDataDomain InitializeDataDomain()
     {
-        var dataDomain = new InMemoryDataDomain();
+        var optionsBuilder = new DbContextOptionsBuilder();
+        optionsBuilder.UseInMemoryDatabase("ToDos");
+
+        var dataDomain = new EFCoreDataDomain(optionsBuilder.Options);
 
         return dataDomain;
     }

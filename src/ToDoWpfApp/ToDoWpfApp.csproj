@@ -9,10 +9,22 @@
 
   <ItemGroup>
     <PackageReference Include="Kapok.Core" Version="0.1.5.8" />
-    <PackageReference Include="Kapok.View" Version="0.1.5.8" />
+    <PackageReference Include="Kapok.Data.EntityFrameworkCore" Version="0.1.6" />
+    <PackageReference Include="Kapok.View" Version="0.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Kapok.View.Wpf.AvalonDock\Kapok.View.Wpf.AvalonDock.csproj" />
     <ProjectReference Include="..\Kapok.View.Wpf\Kapok.View.Wpf.csproj" />
   </ItemGroup>
 

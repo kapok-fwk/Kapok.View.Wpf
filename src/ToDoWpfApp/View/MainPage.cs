@@ -4,7 +4,7 @@ using Kapok.View;
 
 namespace ToDoWpfApp.View;
 
-public class MainPage : InteractivePage
+public class MainPage : DocumentPageCollectionPage
 {
     private IDataDomain _dataDomain;
 
@@ -15,11 +15,36 @@ public class MainPage : InteractivePage
 
         Title = "Simple ToDo Application";
 
+        // this is the menu for the navigation bar
+        AddMenu("Main");
+
         // init commands
         OpenToDoListAction = new UIOpenPageAction("OpenToDoList", typeof(Tasks), ViewDomain);
     }
 
-    [MenuItem, Display(Name = "Open ToDo List")]
+    protected override void OnLoading()
+    {
+        base.OnLoading();
+
+        // Set name of ribbon menu which is visible when no current page is selected.
+        Menu[UIMenu.BaseMenuName].MenuItems[0] = new UIMenuItem("App")
+        {
+            Label = "App",
+            Description = "Anwendung",
+            IsVisible = true,
+            RibbonKeyTip = "A"
+        };
+    }
+
+    protected override void OnSelectedDocumentPageChanged(IPage? oldPage, IPage? page)
+    {
+        base.OnSelectedDocumentPageChanged(oldPage, page);
+
+        // hide/make visible the ribbon menu which is dependent on the current page
+        Menu[UIMenu.BaseMenuName].MenuItems[0].IsVisible = page == null;
+    }
+
+    [MenuItem(MenuName = "Main"), Display(Name = "Open ToDo List")]
     public IAction OpenToDoListAction { get; }
 
     protected override void OnClosed()

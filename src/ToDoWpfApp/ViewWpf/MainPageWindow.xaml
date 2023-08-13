@@ -5,13 +5,30 @@
               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
               xmlns:local="clr-namespace:ToDoWpfApp"
               xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+              xmlns:avalonDock="https://github.com/Dirkster99/AvalonDock"
               xmlns:kapok="http://schemas.github.com/kapok-fwk/Kapok.View.Wpf"
+              xmlns:coreView="clr-namespace:Kapok.View;assembly=Kapok.View"
               Style="{StaticResource InteractWindow}"
               mc:Ignorable="d"
               Height="450" Width="800">
     <Window.Resources>
         <kapok:IActionToICommandConverter x:Key="IActionToICommandConverter" />
     </Window.Resources>
+    <Window.InputBindings>
+        <!-- DocumentPageCollectionPage -->
+        <KeyBinding Gesture="Ctrl+W" Command="{Binding CloseCurrentDocumentPageAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+
+        <!-- MainPage -> to (SelectedDocumentPage is DataPage).<event> -->
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding CurrentDocumentSaveDataAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+        <KeyBinding Gesture="F5" Command="{Binding CurrentDocumentRefreshAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+        <KeyBinding Gesture="Ctrl+N" Command="{Binding CurrentDocumentCreateNewEntryAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+        <KeyBinding Gesture="Ctrl+Delete" Command="{Binding CurrentDocumentDeleteEntryAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+
+        <!-- MainPage -> to (SelectedDocumentPage is ListPage).<event> -->
+        <KeyBinding Gesture="F2" Command="{Binding CurrentDocumentEditEntryAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+        <KeyBinding Gesture="Ctrl+Shift+F" Command="{Binding CurrentDocumentToggleFilterVisibleAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+        <KeyBinding Gesture="Ctrl+E" Command="{Binding CurrentDocumentExportAsExcelSheetAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+    </Window.InputBindings>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Initialized">
             <i:InvokeCommandAction Command="{Binding OnLoadingAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}"/>
@@ -31,5 +48,113 @@
                 <RibbonApplicationMenu Visibility="Collapsed" />
             </Ribbon.ApplicationMenu>
         </Ribbon>
+
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.Resources>
+                <ControlTemplate x:Key="OutlookBar" TargetType="{x:Type TabControl}">
+                    <ControlTemplate.Resources>
+                        <SolidColorBrush x:Key="BorderBrush" Color="#6593CF" />
+                    </ControlTemplate.Resources>
+                    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" 
+                            SnapsToDevicePixels="True" >
+                        <DockPanel>
+                            <StackPanel IsItemsHost="True" DockPanel.Dock="Bottom" />
+                            <ContentPresenter Content="{TemplateBinding SelectedContent}" />
+                        </DockPanel>
+                    </Border>
+                </ControlTemplate>
+            </Grid.Resources>
+
+            <TabControl Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        ItemsSource="{Binding Menu[Main].MenuItems}"
+                        SelectedIndex="0">
+
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Image, Converter={StaticResource ImageNameToImageSourceConverter}, ConverterParameter='Small', Mode=OneTime}"/>
+                            <TextBlock Text="{Binding Label, Converter={StaticResource CaptionConverter}, Mode=OneTime}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+                <TabControl.ContentTemplate>
+                    <DataTemplate>
+                        <TreeView HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                  x:Name="MenuTreeView"
+                                  ItemsSource="{Binding SubMenuItems}"
+                                  
+                                  BorderThickness="0"
+                                  Background="Transparent">
+                            <TreeView.Resources>
+                                <HierarchicalDataTemplate DataType="{x:Type coreView:UIMenuItem}" ItemsSource="{Binding SubMenuItems}">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,2,0" Height="18">
+                                        <Image Source="{Binding Image, Converter={StaticResource ImageNameToImageSourceConverter}, ConverterParameter='Small', Mode=OneTime}"
+                                               Stretch="None" VerticalAlignment="Center"
+                                               />
+                                        <TextBlock Margin="2,0,0,0" VerticalAlignment="Center"
+                                                   Text="{Binding Label, Converter={StaticResource CaptionConverter}, Mode=OneTime}" />
+                                    </StackPanel>
+                                </HierarchicalDataTemplate>
+                                <HierarchicalDataTemplate DataType="{x:Type coreView:UIMenuItemAction}" ItemsSource="{Binding SubMenuItems}">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,2,0" Height="18">
+                                        <Image Source="{Binding Image, Converter={StaticResource ImageNameToImageSourceConverter}, ConverterParameter='Small', Mode=OneTime}"
+                                               Stretch="None" VerticalAlignment="Center"
+                                               />
+                                        <TextBlock Margin="2,0,0,0"
+                                                   VerticalAlignment="Center">
+                                            <Hyperlink Command="{Binding Path=Action, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}"
+                                                       TextDecorations="None">
+                                                <TextBlock Text="{Binding Label, Converter={StaticResource CaptionConverter}, Mode=OneTime}"/>
+                                            </Hyperlink>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </HierarchicalDataTemplate>
+                            </TreeView.Resources>
+                            <TreeView.ItemContainerStyle>
+                                <Style TargetType="TreeViewItem">
+                                    <Setter Property="IsExpanded" Value="True"/>
+                                </Style>
+                            </TreeView.ItemContainerStyle>
+                        </TreeView>
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+            </TabControl>
+
+            <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+
+            <avalonDock:DockingManager Grid.Column="2"
+                                       DocumentsSource="{Binding DocumentPages}"
+                                       AnchorablesSource="{Binding DetailPages}"
+                                       ActiveContent="{Binding SelectedDocumentPage, Mode=TwoWay}">
+                <avalonDock:DockingManager.LayoutItemTemplateSelector>
+                    <kapok:PageTemplateSelector />
+                </avalonDock:DockingManager.LayoutItemTemplateSelector>
+                <avalonDock:DockingManager.LayoutItemContainerStyle>
+                    <!-- you can add additional bindings from the layoutitem to the DockWindowViewModel -->
+                    <Style TargetType="{x:Type avalonDock:LayoutItem}">
+                        <Setter Property="Title" Value="{Binding Model.Title}" />
+                        <Setter Property="CanClose" Value="{Binding Model.CanClose, FallbackValue=True}" />
+                        <Setter Property="CloseCommand" Value="{Binding Model.CloseAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
+                    </Style>
+                </avalonDock:DockingManager.LayoutItemContainerStyle>
+
+                <avalonDock:LayoutRoot>
+                    <avalonDock:LayoutPanel>
+                        <!-- default place for the main page(s) -->
+                        <avalonDock:LayoutDocumentPane />
+
+                        <!-- default place for detail pages -->
+                        <avalonDock:LayoutAnchorablePaneGroup />
+                    </avalonDock:LayoutPanel>
+                </avalonDock:LayoutRoot>
+            </avalonDock:DockingManager>
+
+        </Grid>
     </Grid>
 </RibbonWindow>

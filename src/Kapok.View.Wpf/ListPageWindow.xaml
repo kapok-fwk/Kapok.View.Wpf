@@ -21,21 +21,17 @@
     </Window.Resources>
     <Window.InputBindings>
 
-        <!-- WindowViewModel -->
+        <!-- Page -->
         <KeyBinding Gesture="Escape" Command="{Binding CloseAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
         <KeyBinding Gesture="Ctrl+W" Command="{Binding CloseAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
 
-        <!-- DataWindowViewModel -->
+        <!-- DataPage -->
         <KeyBinding Gesture="Ctrl+S" Command="{Binding SaveDataAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
         <KeyBinding Gesture="F5" Command="{Binding RefreshAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
-
-        <!-- TableWindowViewModel -->
         <KeyBinding Gesture="Ctrl+N" Command="{Binding CreateNewEntryAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
-        <!-- TODO: not sure how DeleteEntryAction get the selected entries of the DataSet -->
         <KeyBinding Gesture="Ctrl+Delete" Command="{Binding DeleteEntryAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
 
-        <!-- TableListWindowViewModel -->
-        <!-- TODO: not sure how EditEntryAction get the selected entries of the DataSet -->
+        <!-- ListPage -->
         <KeyBinding Gesture="F2" Command="{Binding EditEntryAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
         <KeyBinding Gesture="Ctrl+Shift+F" Command="{Binding ToggleFilterVisibleAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
         <KeyBinding Gesture="Ctrl+E" Command="{Binding ExportAsExcelSheetAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}" />
