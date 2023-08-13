@@ -634,6 +634,15 @@ public class CustomDataGrid : DataGrid
             }
 #endif
         }
+        else if (column is DataGridTextColumn textColumn)
+        {
+            if (propertyView.TextWrap)
+            {
+                var style = new Style();
+                style.Setters.Add(new Setter(TextBlock.TextWrappingProperty, TextWrapping.Wrap));
+                textColumn.ElementStyle = style;
+            }
+        }
 
         // enum translation
         if (column is DataGridComboBoxColumn enumCombBoxColumn &&
@@ -671,7 +680,7 @@ public class CustomDataGrid : DataGrid
         }
 
         // update binding
-        Binding binding = null;
+        Binding? binding = null;
         if (column is DataGridComboBoxColumn combBoxColumn)
         {
             binding = combBoxColumn.SelectedValueBinding as Binding;
