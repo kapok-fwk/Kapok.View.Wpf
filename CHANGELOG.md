@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.8.1 (2023-08-27)
+
+- :rocket: enable filter on DataGrid filter bar possible when pressing key Enter
+- :bug: *fix* tab navigation issue in DataGrid filter bar
+- :bug: *fix* crash when setting filter via FilterSet UI control
+
 ## 0.1.8 (2023-08-13)
 
 - :tada: add support for ColumnPropertyView.TextWrap
