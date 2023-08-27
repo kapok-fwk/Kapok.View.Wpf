@@ -5,6 +5,7 @@ using System.Reflection;
 using Kapok.BusinessLayer;
 using Kapok.Data;
 using Kapok.Entity;
+using Res = Kapok.View.Wpf.Resources.Data.FilterSetView;
 
 namespace Kapok.View.Wpf;
 
@@ -39,7 +40,7 @@ public class FilterSetView<TEntry> : IFilterSetView
         PropertyFilters.CollectionChanged += PropertyFilters_CollectionChanged;
     }
 
-    private void PropertyFilters_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    private void PropertyFilters_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         if (e.Action == NotifyCollectionChangedAction.Add ||
             e.Action == NotifyCollectionChangedAction.Remove ||
@@ -171,7 +172,7 @@ public class FilterSetView<TEntry> : IFilterSetView
             if (filterString == null)
             {
                 filterViewModel.IsReadOnly = true;
-                filterViewModel.Value = "(internal)"; // TODO: translation missing
+                filterViewModel.Value = Res.FilterStringNotAvailableText;
             }
             else
             {
@@ -280,7 +281,7 @@ public class FilterSetView<TEntry> : IFilterSetView
                     DeleteFilter();
                     AddNewFilter();
                 }
-                else if (filterViewModel.PropertyFilter is IPropertyFilterStringFilter<TEntry> stringFilter)
+                else if (filterViewModel.PropertyFilter is IPropertyFilterStringFilter stringFilter)
                 {
                     if (filterViewModel.Value == null || string.IsNullOrWhiteSpace(filterViewModel.Value.ToString()))
                     {
