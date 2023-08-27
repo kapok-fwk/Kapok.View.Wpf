@@ -3,13 +3,14 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using Kapok.BusinessLayer;
+using Res = Kapok.View.Wpf.Resources.Controls.DataGridColumnFilterViewModel;
 
 namespace Kapok.View.Wpf;
 
 public class DataGridColumnFilterViewModel : INotifyPropertyChanged, INotifyDataErrorInfo
 {
-    private const string FilterStringNotAvailable = "(*internal*)"; // TODO: translation missing
     private readonly CustomDataGrid _dataGrid;
     private readonly Type _elementType;
     private bool _isReadOnly;
@@ -39,6 +40,8 @@ public class DataGridColumnFilterViewModel : INotifyPropertyChanged, INotifyData
 
             CollectionChangedEventManager.AddHandler(observableCollection, Filter_CollectionChanged);
         }
+
+        UpdateFilterCommand = new RelayCommand(UpdateFilter);
     }
 
     private void Filter_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -96,7 +99,7 @@ public class DataGridColumnFilterViewModel : INotifyPropertyChanged, INotifyData
         }
     }
 
-    private IPropertyFilter PropertyFilter => _dataGrid.Filter.Properties?.FirstOrDefault(d => d.PropertyInfo.Name == PropertyBindingPath);
+    private IPropertyFilter? PropertyFilter => _dataGrid.Filter.Properties?.FirstOrDefault(d => d.PropertyInfo.Name == PropertyBindingPath);
 
     /// <summary>
     /// Identifies if the query string is read only (= can not be changed).
@@ -132,7 +135,7 @@ public class DataGridColumnFilterViewModel : INotifyPropertyChanged, INotifyData
 
                 if (filterString == null)
                 {
-                    SetQueryStringInternal(_queryString = FilterStringNotAvailable);
+                    SetQueryStringInternal(_queryString = Res.FilterStringNotAvailableText);
                     IsReadOnly = true;
                 }
                 else
@@ -160,16 +163,27 @@ public class DataGridColumnFilterViewModel : INotifyPropertyChanged, INotifyData
             if (IsReadOnly)
                 throw new NotSupportedException($"The property {nameof(QueryString)} cannot be changed. The query is read-only.");
 
+            if (_queryString == value)
+                return;
+
             SetQueryStringInternal(value);
-            UpdateFilter();
+            OnPropertyChanged();
         }
     }
+
+    public ICommand UpdateFilterCommand { get; }
 
     private void UpdateFilter()
     {
         var propertyFilter = PropertyFilter;
         if (propertyFilter == null)
         {
+            if (string.IsNullOrEmpty(QueryString))
+            {
+                // Skip when filter text is empty
+                return;
+            }
+
             var newPropertyFilter = new PropertyFilterStringFilter(_elementType, PropertyBindingPath)
             {
                 FilterString = QueryString

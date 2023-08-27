@@ -12,7 +12,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using Kapok.BusinessLayer;
-using Kapok.Core;
 using Kapok.Entity;
 
 namespace Kapok.View.Wpf;

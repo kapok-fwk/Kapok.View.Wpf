@@ -355,6 +355,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\Controls\DataGridColumnFilterViewModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataGridColumnFilterViewModel.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Data\FilterSetView.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FilterSetView.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\DefaultPageControls\HierarchyListPageControl.Designer.cs">
       <DependentUpon>HierarchyListPageControl.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -421,6 +431,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>WindowsLocalUserAuthenticationService.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Controls\DataGridColumnFilterViewModel.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DataGridColumnFilterViewModel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Data\FilterSetView.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FilterSetView.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\DefaultPageControls\HierarchyListPageControl.resx">
       <LastGenOutput>HierarchyListPageControl.Designer.cs</LastGenOutput>

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace Kapok.View.Wpf;
 
@@ -12,6 +13,19 @@ public class DataGridColumnFilter : Control
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(DataGridColumnFilter), new FrameworkPropertyMetadata(typeof(DataGridColumnFilter)));
         FocusableProperty.OverrideMetadata(typeof(DataGridColumnFilter), new FrameworkPropertyMetadata(false));
+    }
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+
+        if (!IsControlInitialized)
+            return;
+
+        if (e.Key == Key.Enter)
+        {
+            ColumnFilter.UpdateFilterCommand.Execute(null);
+        }
     }
 
     #region Overrides
