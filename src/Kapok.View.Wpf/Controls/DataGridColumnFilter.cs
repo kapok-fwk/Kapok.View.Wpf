@@ -11,6 +11,7 @@ public class DataGridColumnFilter : Control
     static DataGridColumnFilter()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(DataGridColumnFilter), new FrameworkPropertyMetadata(typeof(DataGridColumnFilter)));
+        FocusableProperty.OverrideMetadata(typeof(DataGridColumnFilter), new FrameworkPropertyMetadata(false));
     }
 
     #region Overrides
@@ -19,7 +20,7 @@ public class DataGridColumnFilter : Control
     {
         if (!IsControlInitialized &&
             e.Property == DataGridProperty &&
-            DataGridColumnHeader?.Column != null && (DataGrid as CustomDataGrid)?.Filter != null )
+            DataGridColumnHeader.Column != null && (DataGrid as CustomDataGrid)?.Filter != null )
         {
             // TODO: this initialization here is an ugly solution.
 
@@ -32,7 +33,7 @@ public class DataGridColumnFilter : Control
                 // ReSharper disable once AssignNullToNotNullAttribute
                 dataGrid: DataGrid as CustomDataGrid,
                 elementType: itemSourceElementType,
-                propertyPath: GetPropertyBindingPath(DataGridColumnHeader?.Column));
+                propertyPath: GetPropertyBindingPath(DataGridColumnHeader.Column));
 
             IsControlInitialized = true;
         }
@@ -86,7 +87,7 @@ public class DataGridColumnFilter : Control
 
     #endregion
 
-    private static Type GetElementType(IEnumerable source)
+    private static Type? GetElementType(IEnumerable source)
     {
         var enumerableType = source.GetType();
         if (enumerableType.IsArray)
@@ -100,7 +101,7 @@ public class DataGridColumnFilter : Control
         return null;
     }
 
-    private Type GetItemSourceElementType()
+    private Type? GetItemSourceElementType()
     {
         var dataGridItemsSource = DataGrid.ItemsSource;
 
@@ -123,9 +124,9 @@ public class DataGridColumnFilter : Control
         return null;
     }
 
-    private static string GetPropertyBindingPath(DataGridColumn column)
+    private static string? GetPropertyBindingPath(DataGridColumn column)
     {
-        string path = string.Empty;
+        string? path = string.Empty;
 
         if (column is DataGridBoundColumn bc)
         {
@@ -151,10 +152,8 @@ public class DataGridColumnFilter : Control
         {
             object templateContent = tc.CellTemplate.LoadContent();
 
-            if (templateContent != null && templateContent is TextBlock)
+            if (templateContent is TextBlock block)
             {
-                TextBlock block = templateContent as TextBlock;
-
                 BindingExpression binding = block.GetBindingExpression(TextBlock.TextProperty);
 
                 path = binding?.ParentBinding.Path.Path;
