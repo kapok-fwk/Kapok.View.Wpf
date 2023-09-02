@@ -10,7 +10,7 @@
         Title="{Binding Title, Mode=OneTime}" Width="350"
         ResizeMode="NoResize" SizeToContent="Height"
         systemWindows:WindowExtension.HideCloseButton="{Binding HasEnabledCancelButton, Converter={x:Static vmwpf:InverseBooleanConverter.DefaultConverter}, Mode=OneTime}"
-        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+        WindowStartupLocation="CenterOwner">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Initialized">
             <i:InvokeCommandAction Command="{Binding OnLoadingAction, Converter={StaticResource IActionToICommandConverter}, Mode=OneTime}"/>
