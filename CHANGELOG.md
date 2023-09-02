@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.8.2 (2023-09-02)
+
+- :rocket: change show QuestionDialog in taskbar
+- :bug: *fix* nullable crash with CustomDataGrid filter
+
 ## 0.1.8.1 (2023-08-27)
 
 - :rocket: enable filter on DataGrid filter bar possible when pressing key Enter
