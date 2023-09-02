@@ -1145,7 +1145,7 @@ public class CustomDataGrid : DataGrid
         DependencyProperty.Register(nameof(Filter), typeof(IPropertyFilterCollection), typeof(CustomDataGrid),
             new PropertyMetadata(null, OnFilterPropertyChanged));
 
-    public IPropertyFilterCollection Filter
+    public IPropertyFilterCollection? Filter
     {
         get => (IPropertyFilterCollection) GetValue(FilterProperty);
         set => SetValue(FilterProperty, value);

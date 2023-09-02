@@ -24,7 +24,7 @@ public class DataGridColumnFilter : Control
 
         if (e.Key == Key.Enter)
         {
-            ColumnFilter.UpdateFilterCommand.Execute(null);
+            ColumnFilter?.UpdateFilterCommand.Execute(null);
         }
     }
 
@@ -34,7 +34,9 @@ public class DataGridColumnFilter : Control
     {
         if (!IsControlInitialized &&
             e.Property == DataGridProperty &&
-            DataGridColumnHeader.Column != null && (DataGrid as CustomDataGrid)?.Filter != null )
+            DataGridColumnHeader?.Column != null &&
+            DataGrid is CustomDataGrid customDataGrid &&
+            customDataGrid.Filter != null )
         {
             // TODO: this initialization here is an ugly solution.
 
@@ -45,7 +47,7 @@ public class DataGridColumnFilter : Control
 
             ColumnFilter = new DataGridColumnFilterViewModel(
                 // ReSharper disable once AssignNullToNotNullAttribute
-                dataGrid: DataGrid as CustomDataGrid,
+                dataGrid: customDataGrid,
                 elementType: itemSourceElementType,
                 propertyPath: GetPropertyBindingPath(DataGridColumnHeader.Column));
 
@@ -59,7 +61,7 @@ public class DataGridColumnFilter : Control
 
     #region Properties
 
-    public DataGridColumnFilterViewModel ColumnFilter
+    public DataGridColumnFilterViewModel? ColumnFilter
     {
         get => (DataGridColumnFilterViewModel)GetValue(ColumnFilterProperty);
         set => SetValue(ColumnFilterProperty, value);
@@ -68,7 +70,7 @@ public class DataGridColumnFilter : Control
     public static readonly DependencyProperty ColumnFilterProperty =
         DependencyProperty.Register(nameof(ColumnFilter), typeof(DataGridColumnFilterViewModel), typeof(DataGridColumnFilter));
 
-    public DataGridColumnHeader DataGridColumnHeader
+    public DataGridColumnHeader? DataGridColumnHeader
     {
         get => (DataGridColumnHeader)GetValue(DataGridColumnHeaderProperty);
         set => SetValue(DataGridColumnHeaderProperty, value);
@@ -168,7 +170,7 @@ public class DataGridColumnFilter : Control
 
             if (templateContent is TextBlock block)
             {
-                BindingExpression binding = block.GetBindingExpression(TextBlock.TextProperty);
+                BindingExpression? binding = block.GetBindingExpression(TextBlock.TextProperty);
 
                 path = binding?.ParentBinding.Path.Path;
             }

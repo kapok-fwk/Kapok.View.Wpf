@@ -99,7 +99,7 @@ public class DataGridColumnFilterViewModel : INotifyPropertyChanged, INotifyData
         }
     }
 
-    private IPropertyFilter? PropertyFilter => _dataGrid.Filter.Properties?.FirstOrDefault(d => d.PropertyInfo.Name == PropertyBindingPath);
+    private IPropertyFilter? PropertyFilter => _dataGrid.Filter?.Properties?.FirstOrDefault(d => d.PropertyInfo.Name == PropertyBindingPath);
 
     /// <summary>
     /// Identifies if the query string is read only (= can not be changed).
