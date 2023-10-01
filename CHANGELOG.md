@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.9 (2023-10-01)
+
+- :rocket: upgrade packages
+- :bug: *fixing* focus issues with AvalonDock with tree view navigation menu
+
 ## 0.1.8.2 (2023-09-02)
 
 - :rocket: change show QuestionDialog in taskbar
