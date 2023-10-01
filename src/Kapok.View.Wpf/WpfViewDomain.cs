@@ -279,7 +279,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         PageWpfWindows[page].Show();
     }
 
-    private Window GetOwnerWindow(IPage ownerPage)
+    protected Window GetOwnerWindow(IPage ownerPage)
     {
         var owingPageContainer = (
             from p in _pageContainer
