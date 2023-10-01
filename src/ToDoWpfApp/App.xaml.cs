@@ -4,7 +4,7 @@ using Kapok.Data;
 using Kapok.Data.EntityFrameworkCore;
 using Kapok.Module;
 using Kapok.View;
-using Kapok.View.Wpf;
+using Kapok.View.Wpf.AvalonDock;
 using Microsoft.EntityFrameworkCore;
 using ToDoWpfApp.View;
 
@@ -62,7 +62,7 @@ public partial class App : Application
         //Logger.Info("Initiate view domain");
         DataDomain.DefaultDaoType = typeof(DeferredDao<>);
 
-        return new WpfViewDomain(ShutdownApplication);
+        return new WpfAvalonDockViewDomain(ShutdownApplication);
     }
 
     private static IDataDomain InitializeDataDomain()
