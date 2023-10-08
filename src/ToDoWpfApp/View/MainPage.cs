@@ -20,7 +20,8 @@ public class MainPage : DocumentPageCollectionPage
         AddMenu("Main");
 
         // init commands
-        OpenToDoListAction = new UIOpenPageAction("OpenToDoList", typeof(Tasks), ViewDomain);
+        OpenToDoListAction = new UIOpenPageAction("OpenToDoList", typeof(TaskLists), ViewDomain);
+        OpenToDosAction = new UIOpenPageAction("OpenToDos", typeof(Tasks), ViewDomain);
         OpenTestPageAction = new UIOpenPageAction("OpenTestPage", typeof(TestPage), ViewDomain);
     }
 
@@ -57,6 +58,9 @@ public class MainPage : DocumentPageCollectionPage
 
     [MenuItem(MenuName = "Main"), Display(Name = "Open ToDo List")]
     public IAction OpenToDoListAction { get; }
+
+    [MenuItem(MenuName = "Main"), Display(Name = "Open ToDos")]
+    public IAction OpenToDosAction { get; }
 
     [MenuItem(MenuName = "Main"), Display(Name = "Test page")]
     public IAction OpenTestPageAction { get; }

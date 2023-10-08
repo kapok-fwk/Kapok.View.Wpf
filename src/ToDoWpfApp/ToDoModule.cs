@@ -18,6 +18,7 @@ public class ToDoModule : ModuleBase
 
         // register default pages for data models
         ViewDomain.RegisterEntityDefaultPage<Task>(typeof(Tasks));
+        ViewDomain.RegisterEntityDefaultPage<TaskList>(typeof(TaskLists));
 
         // register detail page controls
         WpfViewDomain.RegisterPageWpfControlType<MainPage>(typeof(MainPageWindow));
