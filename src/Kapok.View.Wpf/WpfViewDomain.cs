@@ -228,7 +228,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         if (sender is Window window)
         {
             var page = PageWpfWindows.FirstOrDefault(pair => pair.Value == window).Key;
-            // TODO: add debug assert when `page == null`; should never happen
+            Debug.Assert(page != null, "Window_Closing: PageWpfWindows.FirstOrDefault() == null");
 
             if (page != null)
             {
@@ -326,10 +326,9 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         if (!_pageContainer.ContainsKey(owningPage))
         {
 #if DEBUG
-            throw new ArgumentException("There is no page container registered for this page", nameof(owningPage));
-#else
-            return;
+            Debug.WriteLine("There is no page container registered for this page", nameof(owningPage));
 #endif
+            return;
         }
 
         _pageContainer.Remove(owningPage);
@@ -337,6 +336,9 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
 
     public override void ClosePage(IPage page)
     {
+        // makes sure that the page container is removed to avoid possible memory leaks
+        _pageContainer.Remove(page);
+
         var pageInPageContainer = _pageContainer.Values.FirstOrDefault(pc => pc.Contains(page));
         if (pageInPageContainer != null)
         {
