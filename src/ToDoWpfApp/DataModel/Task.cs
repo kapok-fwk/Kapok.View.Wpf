@@ -11,6 +11,7 @@ public class Task : EditableEntityBase
     private string _name = string.Empty;
     private string? _description;
     private DateTime? _dueDate;
+    private decimal _estimatedTime;
     private Guid? _taskListId;
 
     [Key]
@@ -42,6 +43,14 @@ public class Task : EditableEntityBase
     {
         get => _dueDate;
         set => SetValidateProperty(ref _dueDate, value);
+    }
+
+    [Display(Name = nameof(EstimatedTime))]
+    [Precision(2)]
+    public decimal EstimatedTime
+    {
+        get => _estimatedTime;
+        set => SetValidateProperty(ref _estimatedTime, value);
     }
 
     [Display(Name = nameof(TaskListId))]

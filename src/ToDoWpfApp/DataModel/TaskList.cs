@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
 using Kapok.Entity;
 
 namespace ToDoWpfApp.DataModel;
@@ -13,6 +15,7 @@ public class TaskList : EditableEntityBase
 
     [Key]
     [Display(Name = nameof(Id))]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id
     {
         get => _id;

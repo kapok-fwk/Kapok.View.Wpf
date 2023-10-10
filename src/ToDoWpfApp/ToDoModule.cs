@@ -2,6 +2,7 @@
 using Kapok.Module;
 using Kapok.View;
 using Kapok.View.Wpf;
+using ToDoWpfApp.BusinessLogic;
 using ToDoWpfApp.DataModel;
 using ToDoWpfApp.View;
 using ToDoWpfApp.ViewWpf;
@@ -13,7 +14,7 @@ public class ToDoModule : ModuleBase
     public ToDoModule() : base(nameof(ToDoModule))
     {
         // data model registration
-        DataDomain.RegisterEntity<Task>();
+        DataDomain.RegisterEntity<Task, TaskDao>();
         DataDomain.RegisterEntity<TaskList>();
 
         // register default pages for data models

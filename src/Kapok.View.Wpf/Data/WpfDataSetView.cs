@@ -151,7 +151,7 @@ public class WpfDataSetView<TEntry> : DataSetView<TEntry>, IWpfDataSetView
     }
 
     #endregion
-        
+
     #region Filter
         
     protected override void OnFilterChanged()
