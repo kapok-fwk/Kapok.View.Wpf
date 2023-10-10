@@ -6,6 +6,8 @@ namespace Kapok.View.Wpf;
 /// <summary>
 /// A converter in the UI for parsing string values to a numeric target type.
 /// </summary>
+
+// T -> T
 [ValueConversion(typeof(byte), typeof(byte))]
 [ValueConversion(typeof(byte?), typeof(byte?))]
 [ValueConversion(typeof(sbyte), typeof(sbyte))]
@@ -28,6 +30,21 @@ namespace Kapok.View.Wpf;
 [ValueConversion(typeof(double?), typeof(double?))]
 [ValueConversion(typeof(decimal), typeof(decimal))]
 [ValueConversion(typeof(decimal?), typeof(decimal?))]
+
+// T --> T?
+[ValueConversion(typeof(byte), typeof(byte?))]
+[ValueConversion(typeof(sbyte), typeof(sbyte?))]
+[ValueConversion(typeof(short), typeof(short?))]
+[ValueConversion(typeof(ushort), typeof(ushort?))]
+[ValueConversion(typeof(int), typeof(int?))]
+[ValueConversion(typeof(uint), typeof(uint?))]
+[ValueConversion(typeof(long), typeof(long))]
+[ValueConversion(typeof(ulong), typeof(ulong?))]
+[ValueConversion(typeof(float), typeof(float?))]
+[ValueConversion(typeof(double), typeof(double?))]
+[ValueConversion(typeof(decimal), typeof(decimal?))]
+
+// T --> string
 [ValueConversion(typeof(byte), typeof(string))]
 [ValueConversion(typeof(byte?), typeof(string))]
 [ValueConversion(typeof(sbyte), typeof(string))]
@@ -78,7 +95,9 @@ public class EnterNumericValueConverter : IValueConverter
 
         var valueType = value.GetType();
 
-        if (valueType == targetType)
+        if (valueType == targetType ||
+            targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(Nullable<>) &&
+            Nullable.GetUnderlyingType(targetType) == valueType)
         {
             return value;
         }
