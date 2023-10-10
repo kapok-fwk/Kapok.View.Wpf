@@ -837,6 +837,7 @@ public class CustomDataGrid : DataGrid
         int maxColumnDisplayIndex = Columns.Count - 1;
         int rowDataIndex = 0;
 
+        // create cache of the columns to be pasted to
         var displayColumns = new List<DataGridColumn>();
         for (int i = minColumnDisplayIndex; i <= maxColumnDisplayIndex; i++)
         {
@@ -859,16 +860,17 @@ public class CustomDataGrid : DataGrid
                 {
                     object cellValue = rowData[rowDataIndex][columnDataIndex];
 
-                    // here we have to fix the bug
-                    // https://github.com/kapok-fwk/Kapok.View.Wpf/issues/1
                     column.OnPastingCellClipboardContent(Items[i], cellValue);
                 }
             }
 
-            CommitEditCommand.Execute(this, this);
+            if (i == maxRowIndex)
+            {
+                // still has more items to paste, update the maxRowIndex
+                maxRowIndex = Items.Count - 1;
+            }
 
-            // note: the 'BeginEditCommand' might add an new row via the NewItemPlaceholder. With this we update the max. last row for our loop
-            maxRowIndex = Items.Count - 1;
+            CommitEditCommand.Execute(this, this);
         }
     }
 

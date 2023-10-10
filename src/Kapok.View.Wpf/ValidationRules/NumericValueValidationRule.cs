@@ -21,6 +21,12 @@ public class NumericValueValidationRule : ValidationRule
         if (value == null)
             return new ValidationResult(true, null);
 
+        if (value is short or ushort or int or uint or long or ulong or float or decimal)
+        {
+            // Is a valid numeric data type
+            return new ValidationResult(true, null);
+        }
+
         if (value is string s)
         {
             if (s == string.Empty)

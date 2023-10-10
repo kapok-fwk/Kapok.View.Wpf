@@ -6,6 +6,28 @@ namespace Kapok.View.Wpf;
 /// <summary>
 /// A converter in the UI for parsing string values to a numeric target type.
 /// </summary>
+[ValueConversion(typeof(byte), typeof(byte))]
+[ValueConversion(typeof(byte?), typeof(byte?))]
+[ValueConversion(typeof(sbyte), typeof(sbyte))]
+[ValueConversion(typeof(sbyte?), typeof(sbyte?))]
+[ValueConversion(typeof(short), typeof(short))]
+[ValueConversion(typeof(short?), typeof(short?))]
+[ValueConversion(typeof(ushort), typeof(ushort))]
+[ValueConversion(typeof(ushort?), typeof(ushort?))]
+[ValueConversion(typeof(int), typeof(int))]
+[ValueConversion(typeof(int?), typeof(int?))]
+[ValueConversion(typeof(uint), typeof(uint))]
+[ValueConversion(typeof(uint?), typeof(uint?))]
+[ValueConversion(typeof(long), typeof(long))]
+[ValueConversion(typeof(long?), typeof(long))]
+[ValueConversion(typeof(ulong), typeof(ulong))]
+[ValueConversion(typeof(ulong?), typeof(ulong?))]
+[ValueConversion(typeof(float), typeof(float))]
+[ValueConversion(typeof(float?), typeof(float?))]
+[ValueConversion(typeof(double), typeof(double))]
+[ValueConversion(typeof(double?), typeof(double?))]
+[ValueConversion(typeof(decimal), typeof(decimal))]
+[ValueConversion(typeof(decimal?), typeof(decimal?))]
 [ValueConversion(typeof(byte), typeof(string))]
 [ValueConversion(typeof(byte?), typeof(string))]
 [ValueConversion(typeof(sbyte), typeof(string))]
@@ -52,6 +74,13 @@ public class EnterNumericValueConverter : IValueConverter
         if (value == null)
         {
             return targetType.GetTypeDefault();
+        }
+
+        var valueType = value.GetType();
+
+        if (valueType == targetType)
+        {
+            return value;
         }
 
         if (value is string s)
