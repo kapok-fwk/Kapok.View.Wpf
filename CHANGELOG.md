@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.10 (2023-10-10)
+
+- :change: ensure no memory leak by WpfViewDomain._pageContainer
+- :bug: *fix* adding decimal type #1 with copy/past
+
 ## 0.1.9 (2023-10-01)
 
 - :rocket: upgrade packages
