@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.10.1 (2023-10-10)
+
+- :bug: *fix* support clipboard pasting to nullable value types
+
 ## 0.1.10 (2023-10-10)
 
 - :change: ensure no memory leak by WpfViewDomain._pageContainer
