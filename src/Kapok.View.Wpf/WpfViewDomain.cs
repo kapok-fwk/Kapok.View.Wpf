@@ -169,8 +169,8 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
 
     public override Type GetPageControlType(Type pageType)
     {
-        if (PageWpfControlTypes.ContainsKey(pageType))
-            return PageWpfControlTypes[pageType];
+        if (PageWpfControlTypes.TryGetValue(pageType, out var type))
+            return type;
 
         if (typeof(IListPage).IsAssignableFrom(pageType))
         {
@@ -185,8 +185,8 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
 
     private Window ConstructWindow(Type pageType)
     {
-        if (PageWpfWindowConstructors.ContainsKey(pageType))
-            return PageWpfWindowConstructors[pageType].Invoke();
+        if (PageWpfWindowConstructors.TryGetValue(pageType, out var constructor))
+            return constructor.Invoke();
 
         if (typeof(QuestionDialogPage).IsAssignableFrom(pageType))
             return new QuestionDialogPageWindow();
@@ -230,17 +230,14 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
             var page = PageWpfWindows.FirstOrDefault(pair => pair.Value == window).Key;
             Debug.Assert(page != null, "Window_Closing: PageWpfWindows.FirstOrDefault() == null");
 
-            if (page != null)
+            if (page is IDialogPage dialogPage)
             {
-                if (page is IDialogPage dialogPage)
-                {
-                    window.DialogResult = dialogPage.DialogResult;
-                }
+                window.DialogResult = dialogPage.DialogResult;
+            }
 
-                if (page is Kapok.View.Page pageObject)
-                {
-                    pageObject.RaiseClosing(e);
-                }
+            if (page is Kapok.View.Page pageObject)
+            {
+                pageObject.RaiseClosing(e);
             }
         }
     }
@@ -263,7 +260,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
 
                 PageWpfWindows.Remove(page);
 #if !DEBUG
-        }
+            }
 #endif
 
             // unsubscribe events
@@ -423,8 +420,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
             message = text.ToString();
         }
 
-        if (title == null)
-            title = WindowViewModelRes.ExceptionGuiMessage_Caption;
+        title ??= WindowViewModelRes.ExceptionGuiMessage_Caption;
 
         if (ownerPage != null)
         {
@@ -438,8 +434,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
 
     public override bool ShowYesNoQuestionMessage(string message, string? title = null, IPage? ownerPage = null)
     {
-        if (title == null)
-            title = WindowViewModelRes.YesNoQuestionGuiMessage_Caption;
+        title ??= WindowViewModelRes.YesNoQuestionGuiMessage_Caption;
 
         MessageBoxResult result;
 
@@ -457,8 +452,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
 
     public override bool ShowConfirmMessage(string message, string? title = null, IPage? ownerPage = null)
     {
-        if (title == null)
-            title = WindowViewModelRes.ConfirmGuiMessage_Caption;
+        title ??= WindowViewModelRes.ConfirmGuiMessage_Caption;
 
         MessageBoxResult result;
 
