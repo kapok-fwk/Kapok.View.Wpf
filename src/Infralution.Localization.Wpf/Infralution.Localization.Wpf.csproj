@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFrameworks>net6.0-windows;net7.0-windows</TargetFrameworks>
     <AssemblyName>Infralution.Localization.Wpf</AssemblyName>
     <RootNamespace>Infralution.Localization.Wpf</RootNamespace>
     <UseWPF>true</UseWPF>
