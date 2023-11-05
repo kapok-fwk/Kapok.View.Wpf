@@ -8,7 +8,7 @@ namespace ToDoWpfApp.View;
 
 public class Tasks : ListPage<Task>
 {
-    public Tasks(IViewDomain? viewDomain = null, IDataDomainScope? dataDomainScope = null) : base(viewDomain, dataDomainScope)
+    public Tasks(IViewDomain? viewDomain = null, IDataDomainScope? dataDomain = null) : base(viewDomain, dataDomain)
     {
         Title = $"Tasks {Thread.CurrentThread.CurrentUICulture.ToString()}";
 

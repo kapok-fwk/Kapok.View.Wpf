@@ -6,8 +6,8 @@ namespace Kapok.View.Wpf.AvalonDock;
 
 public class WpfAvalonDockViewDomain : WpfViewDomain
 {
-    public WpfAvalonDockViewDomain(Action<int> shutdownApplicationAction)
-        : base(shutdownApplicationAction)
+    public WpfAvalonDockViewDomain(Action<int> shutdownApplicationAction, IServiceProvider? serviceProvider = null)
+        : base(shutdownApplicationAction, serviceProvider)
     {
         DefaultCardPageWindow = typeof(CardPageWindow);
         DefaultListPageWindow = typeof(ListPageWindow);

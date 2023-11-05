@@ -9,8 +9,8 @@ namespace ToDoWpfApp.View;
 
 public class TaskLists : ListPage<TaskList>
 {
-    public TaskLists(IViewDomain? viewDomain = null, IDataDomainScope? dataDomainScope = null)
-        : base(viewDomain, dataDomainScope)
+    public TaskLists(IViewDomain? viewDomain = null, IDataDomain? dataDomain = null)
+        : base(viewDomain, dataDomain)
     {
         Title = "Task lists";
 

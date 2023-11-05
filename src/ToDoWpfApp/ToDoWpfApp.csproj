@@ -8,19 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kapok.Core" Version="0.1.9.1" />
-    <PackageReference Include="Kapok.Data.EntityFrameworkCore" Version="0.1.9" />
-    <PackageReference Include="Kapok.View" Version="0.1.10.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
+    <PackageReference Include="Kapok.Core" Version="0.1.15" />
+    <PackageReference Include="Kapok.Data.EntityFrameworkCore" Version="0.1.13" />
+    <PackageReference Include="Kapok.View" Version="0.1.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup>

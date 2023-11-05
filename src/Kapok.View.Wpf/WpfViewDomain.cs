@@ -79,7 +79,8 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         }
     }
 
-    public WpfViewDomain(Action<int> shutdownApplicationAction)
+    public WpfViewDomain(Action<int> shutdownApplicationAction, IServiceProvider? serviceProvider = null)
+        : base(serviceProvider)
     {
         ShutdownApplication = shutdownApplicationAction;
     }
