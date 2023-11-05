@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.17 (2023-11-05)
+
+- :rocket: support .net 7.0 build
+- :rocket: upgrade to Kapok 0.1.17
+- :bug: make sure not binding to null in ImageCommand
+
 ## 0.1.10.1 (2023-10-10)
 
 - :bug: *fix* support clipboard pasting to nullable value types

@@ -15,7 +15,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestApps", "TestApps", "{A7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoWpfApp", "src\ToDoWpfApp\ToDoWpfApp.csproj", "{593A513B-E58E-4981-BE81-58B5C3BC5F30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kapok.View.Wpf.UnitTest", "src\Kapok.View.Wpf.UnitTest\Kapok.View.Wpf.UnitTest.csproj", "{1B5BB7C0-FC66-44B4-98CA-75D545ED96B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kapok.View.Wpf.UnitTest", "src\Kapok.View.Wpf.UnitTest\Kapok.View.Wpf.UnitTest.csproj", "{1B5BB7C0-FC66-44B4-98CA-75D545ED96B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Projektmappenelemente", "{D8B78FE0-993E-4094-B6CC-2BAA78D27251}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
