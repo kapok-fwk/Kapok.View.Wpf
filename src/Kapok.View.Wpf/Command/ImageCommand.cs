@@ -15,7 +15,7 @@ public interface IImageCommand
 public class ImageCommand : RelayCommand, IImageCommand, IHideCommand
 {
     private bool _isVisible = true;
-    private string _imageName;
+    private string _imageName = string.Empty;
 
     public ImageCommand(Action execute)
         : base(execute)
@@ -46,14 +46,22 @@ public class ImageCommand : RelayCommand, IImageCommand, IHideCommand
         {
             if (_imageName == value) return;
             _imageName = value;
-            SmallImage = ImageManager.GetImageResource(_imageName, ImageManager.ImageSize.Small);
-            LargeImage = ImageManager.GetImageResource(_imageName, ImageManager.ImageSize.Large);
+            if (string.IsNullOrEmpty(_imageName))
+            {
+                SmallImage = string.Empty;
+                LargeImage = string.Empty;
+            }
+            else
+            {
+                SmallImage = ImageManager.GetImageResource(_imageName, ImageManager.ImageSize.Small);
+                LargeImage = ImageManager.GetImageResource(_imageName, ImageManager.ImageSize.Large);
+            }
         }
     }
 
-    public string SmallImage { get; private set; }
+    public string SmallImage { get; private set; } = string.Empty;
 
-    public string LargeImage { get; private set; }
+    public string LargeImage { get; private set; } = string.Empty;
 
     public bool IsVisible
     {
@@ -102,7 +110,7 @@ public class ImageCommand : RelayCommand, IImageCommand, IHideCommand
 public class ImageCommand<T> : RelayCommand<T>, IImageCommand, IHideCommand
 {
     private bool _isVisible = true;
-    private string _imageName;
+    private string _imageName = string.Empty;
 
     public ImageCommand(Action<T?> execute)
         : base(execute)
@@ -133,14 +141,22 @@ public class ImageCommand<T> : RelayCommand<T>, IImageCommand, IHideCommand
         {
             if (_imageName == value) return;
             _imageName = value;
-            SmallImage = ImageManager.GetImageResource(_imageName, ImageManager.ImageSize.Small);
-            LargeImage = ImageManager.GetImageResource(_imageName, ImageManager.ImageSize.Large);
+            if (string.IsNullOrEmpty(_imageName))
+            {
+                SmallImage = string.Empty;
+                LargeImage = string.Empty;
+            }
+            else
+            {
+                SmallImage = ImageManager.GetImageResource(_imageName, ImageManager.ImageSize.Small);
+                LargeImage = ImageManager.GetImageResource(_imageName, ImageManager.ImageSize.Large);
+            }
         }
     }
 
-    public string SmallImage { get; set; }
+    public string SmallImage { get; set; } = string.Empty;
 
-    public string LargeImage { get; set; }
+    public string LargeImage { get; set; } = string.Empty;
 
     public bool IsVisible
     {
