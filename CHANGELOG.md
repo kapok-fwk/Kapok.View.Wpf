@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.21 (2023-11-19)
+
+- :rocket: support .Net 8.0 build
+- :rocket: upgrade to Kapok 0.1.21
+
 ## 0.1.17 (2023-11-05)
 
 - :rocket: support .net 7.0 build
