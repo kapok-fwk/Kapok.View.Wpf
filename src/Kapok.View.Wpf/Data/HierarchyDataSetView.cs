@@ -16,8 +16,8 @@ public class HierarchyDataSetView<TEntry> : WpfDataSetView<TEntry>, IHierarchyDa
 {
     // TODO: After 'Refresh()' the information which row is opened and closed is removed. This should be changed, maybe by using an proxy entry and a cache in the HierarchyTableDataViewModel object which is mapped back to the objects which still exist.
 
-    public HierarchyDataSetView(IViewDomain viewDomain, IDataDomainScope dataDomainScope, IDao<TEntry>? repository = null)
-        : base(viewDomain, dataDomainScope, repository)
+    public HierarchyDataSetView(IServiceProvider serviceProvider, IDataDomainScope dataDomainScope, IDao<TEntry>? dao = null)
+        : base(serviceProvider, dataDomainScope, dao)
     {
         AllEntriesCollection = new ObservableCollection<TEntry>();
         AllEntriesCollection.CollectionChanged += AllEntriesCollection_CollectionChanged;

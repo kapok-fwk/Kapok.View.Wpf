@@ -1,8 +1,9 @@
-﻿using Kapok.Data;
-using Kapok.Report;
+﻿using Kapok.Report;
 using Kapok.Report.DataModel;
 using System.Collections.ObjectModel;
 using System.IO;
+using Kapok.Data;
+using Microsoft.Extensions.DependencyInjection;
 using DataTableReportViewModelRes = Kapok.View.Wpf.Report.Resources.DataTableReportViewModel;
 using Res = Kapok.View.Wpf.Report.Resources.MimeTypeReportPage;
 
@@ -192,10 +193,10 @@ public sealed class MimeTypeReportPage : ReportPage<ReportProcessor<Kapok.Report
 
     private static readonly IReadOnlyDictionary<string, Caption> MimeTypeDisplayName;
 
-    public MimeTypeReportPage(Kapok.Report.Model.Report model, IDataDomain dataDomain, ReportLayout? layout = null, IViewDomain? viewDomain = null)
-        : base(model, null, viewDomain)
+    public MimeTypeReportPage(Kapok.Report.Model.Report model, IServiceProvider serviceProvider, ReportLayout? layout = null)
+        : base(model, null, serviceProvider)
     {
-        _reportEngine = new ReportEngine(dataDomain);
+        _reportEngine = new ReportEngine(serviceProvider.GetRequiredService<IDataDomain>());
         ReportLayout = _reportEngine.GetOrCreateReportLayout(model, null);
 
         IsDesignable = _reportEngine.IsModelDesignable(model);

@@ -1,11 +1,12 @@
-﻿using Kapok.View;
+﻿using System;
+using Kapok.View;
 
 namespace ToDoWpfApp.View;
 
 public class TestPage : InteractivePage
 {
-    public TestPage(IViewDomain viewDomain)
-        : base(viewDomain)
+    public TestPage(IServiceProvider serviceProvider)
+        : base(serviceProvider)
     {
         Title = "Test page";
     }

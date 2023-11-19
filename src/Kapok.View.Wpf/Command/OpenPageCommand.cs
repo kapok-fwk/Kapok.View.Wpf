@@ -2,15 +2,14 @@
 using System.Diagnostics;
 using System.Windows.Input;
 using Kapok.BusinessLayer;
-using Kapok.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Kapok.View.Wpf;
 
 public class OpenPageCommand : IImageCommand, ITableDataCommand
 {
     public readonly Type PageType;
-    protected readonly IViewDomain ViewDomain;
-    protected readonly Dictionary<Type, object> PageConstructorParamValues = new Dictionary<Type, object>();
+    protected readonly IServiceProvider ServiceProvider;
     private readonly TableDataImageCommand _internalTableDataCommand;
     private readonly ImageCommand _internalCommand;
     public Func<IList, bool> CanExecuteFunc { get; set; }
@@ -37,21 +36,17 @@ public class OpenPageCommand : IImageCommand, ITableDataCommand
         return UseTableDataReference;
     }
 
-    public OpenPageCommand(Type pageType, IViewDomain? viewDomain = null, IDataDomainScope? dataDomainScope = null)
+    public OpenPageCommand(Type pageType, IServiceProvider serviceProvider)
     {
         PageType = pageType;
-        ViewDomain = viewDomain ?? Kapok.View.ViewDomain.Default;
-        PageConstructorParamValues.Add(typeof(IDataDomainScope), dataDomainScope);
-        PageConstructorParamValues.Add(typeof(IViewDomain), viewDomain);
+        ServiceProvider = serviceProvider;
         _internalTableDataCommand = new TableDataImageCommand(Execute, CanExecute);
         _internalCommand = new ImageCommand(Execute, CanExecute);
     }
-    public OpenPageCommand(Type pageType, Func<bool> canExecuteFunc, IViewDomain? viewDomain = null, IDataDomainScope? dataDomainScope = null)
+    public OpenPageCommand(Type pageType, Func<bool> canExecuteFunc, IServiceProvider serviceProvider)
     {
         PageType = pageType;
-        ViewDomain = viewDomain ?? Kapok.View.ViewDomain.Default;
-        PageConstructorParamValues.Add(typeof(IDataDomainScope), dataDomainScope);
-        PageConstructorParamValues.Add(typeof(IViewDomain), viewDomain);
+        ServiceProvider = serviceProvider;
 
         if (canExecuteFunc != null)
             CanExecuteFunc = (o) => canExecuteFunc.Invoke();
@@ -59,12 +54,10 @@ public class OpenPageCommand : IImageCommand, ITableDataCommand
         _internalTableDataCommand = new TableDataImageCommand(Execute, CanExecute);
         _internalCommand = new ImageCommand(Execute, CanExecute);
     }
-    public OpenPageCommand(Type pageType, Func<IList, bool> canExecuteFunc, IViewDomain? viewDomain = null, IDataDomainScope? dataDomainScope = null)
+    public OpenPageCommand(Type pageType, Func<IList, bool> canExecuteFunc, IServiceProvider serviceProvider)
     {
         PageType = pageType;
-        ViewDomain = viewDomain ?? Kapok.View.ViewDomain.Default;
-        PageConstructorParamValues.Add(typeof(IDataDomainScope), dataDomainScope);
-        PageConstructorParamValues.Add(typeof(IViewDomain), viewDomain);
+        ServiceProvider = serviceProvider;
         CanExecuteFunc = canExecuteFunc;
         _internalTableDataCommand = new TableDataImageCommand(Execute, CanExecute);
         _internalCommand = new ImageCommand(Execute, CanExecute);
@@ -97,7 +90,7 @@ public class OpenPageCommand : IImageCommand, ITableDataCommand
 
     protected virtual void Execute()
     {
-        var page = ViewDomain.ConstructPage(PageType, PageConstructorParamValues);
+        var page = ServiceProvider.GetRequiredService<IViewDomain>().ConstructPage(PageType, ServiceProvider);
         page.Show();
     }
 
@@ -125,14 +118,14 @@ public class OpenPageCommand : IImageCommand, ITableDataCommand
             return;
         }
 
-        var page = (IDataPage)ViewDomain.ConstructPage(PageType, PageConstructorParamValues);
+        var page = (IDataPage)ServiceProvider.GetRequiredService<IViewDomain>().ConstructPage(PageType, ServiceProvider);
 
         if (Filter != null)
         {
             var filterSet = ConstructFilterSet();
 
             var firstEntry = newSelectedEntriesList[0];
-            Filter.Invoke(filterSet, firstEntry, BaseDataSetView?.Filter.GetNestedDataFilter(ViewDomain) ?? new Dictionary<string, object>());
+            Filter.Invoke(filterSet, firstEntry, BaseDataSetView?.Filter.GetNestedDataFilter(ServiceProvider.GetRequiredService<IViewDomain>()) ?? new Dictionary<string, object>());
 
             page.DataSet.Filter.Add(filterSet);
         }
@@ -229,18 +222,18 @@ public class OpenPageCommand<TPage, TSourceEntry, TDestinationEntry> : OpenPageC
     where TSourceEntry : class, new()
     where TDestinationEntry : class, new()
 {
-    public OpenPageCommand(IViewDomain viewDomain = null, IDataDomainScope dataDomainScope = null)
-        : base(typeof(TPage), viewDomain, dataDomainScope)
+    public OpenPageCommand(IServiceProvider serviceProvider)
+        : base(typeof(TPage), serviceProvider)
     {
     }
 
-    public OpenPageCommand(Func<bool> canExecuteFunc, IViewDomain viewDomain = null, IDataDomainScope dataDomainScope = null)
-        : base(typeof(TPage), canExecuteFunc, viewDomain, dataDomainScope)
+    public OpenPageCommand(Func<bool> canExecuteFunc, IServiceProvider serviceProvider)
+        : base(typeof(TPage), canExecuteFunc, serviceProvider)
     {
     }
 
-    public OpenPageCommand(Func<IList, bool> canExecuteFunc, IViewDomain viewDomain = null, IDataDomainScope dataDomainScope = null)
-        : base(typeof(TPage), canExecuteFunc, viewDomain, dataDomainScope)
+    public OpenPageCommand(Func<IList, bool> canExecuteFunc, IServiceProvider serviceProvider)
+        : base(typeof(TPage), canExecuteFunc, serviceProvider)
     {
     }
 

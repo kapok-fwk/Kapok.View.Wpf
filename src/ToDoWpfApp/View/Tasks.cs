@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
-using Kapok.Data;
 using Kapok.View;
 using ToDoWpfApp.DataModel;
 
@@ -8,9 +8,9 @@ namespace ToDoWpfApp.View;
 
 public class Tasks : ListPage<Task>
 {
-    public Tasks(IViewDomain? viewDomain = null, IDataDomainScope? dataDomain = null) : base(viewDomain, dataDomain)
+    public Tasks(IServiceProvider serviceProvider) : base(serviceProvider)
     {
-        Title = $"Tasks {Thread.CurrentThread.CurrentUICulture.ToString()}";
+        Title = $"Tasks {Thread.CurrentThread.CurrentUICulture}";
 
         ListViews.Add(new DataSetListView
         {

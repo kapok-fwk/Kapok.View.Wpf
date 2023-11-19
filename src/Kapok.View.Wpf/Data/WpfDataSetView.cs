@@ -23,8 +23,8 @@ public class WpfDataSetView<TEntry> : DataSetView<TEntry>, IWpfDataSetView
 
     protected readonly CollectionViewSource CollectionViewSource = new();
 
-    public WpfDataSetView(IViewDomain viewDomain, IDataDomainScope dataDomainScope, IDao<TEntry>? repository = null)
-        : base(viewDomain, dataDomainScope, repository)
+    public WpfDataSetView(IServiceProvider serviceProvider, IDataDomainScope dataDomainScope, IDao<TEntry>? dao = null)
+        : base(serviceProvider, dataDomainScope, dao)
     {
         FilterView = new FilterSetView<TEntry>(Filter);
         FilterView.ApplyFilter += FilterView_ApplyFilter;

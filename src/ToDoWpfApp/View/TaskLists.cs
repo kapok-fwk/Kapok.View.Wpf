@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Kapok.BusinessLayer;
-using Kapok.Data;
 using Kapok.View;
 using ToDoWpfApp.DataModel;
 
@@ -9,8 +9,8 @@ namespace ToDoWpfApp.View;
 
 public class TaskLists : ListPage<TaskList>
 {
-    public TaskLists(IViewDomain? viewDomain = null, IDataDomain? dataDomain = null)
-        : base(viewDomain, dataDomain)
+    public TaskLists(IServiceProvider serviceProvider)
+        : base(serviceProvider)
     {
         Title = "Task lists";
 
@@ -23,7 +23,7 @@ public class TaskLists : ListPage<TaskList>
             }
         });
 
-        OpenTasksAction = new UIOpenReferencedPageAction<TaskList>("OpenTasks", typeof(Tasks), ViewDomain, DataSet,
+        OpenTasksAction = new UIOpenReferencedPageAction<TaskList>("OpenTasks", typeof(Tasks), ServiceProvider, DataSet,
             filter: (filter, taskList, _) =>
             {
                 var filterSet = (IFilterSet<Task>)filter;

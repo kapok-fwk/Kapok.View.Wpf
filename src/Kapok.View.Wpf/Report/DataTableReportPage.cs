@@ -8,9 +8,10 @@ public abstract class DataTableReportPage<TReportProcessor, TReportModel> : Repo
     where TReportProcessor : DataTableReportProcessor<TReportModel>
     where TReportModel : DataTableReport
 {
-    protected DataTableReportPage(TReportModel model, TReportProcessor processor, IViewDomain viewDomain)
-        : base(model, processor, viewDomain)
+    protected DataTableReportPage(TReportModel model, TReportProcessor processor, IServiceProvider serviceProvider)
+        : base(model, processor, serviceProvider)
     {
+        ArgumentNullException.ThrowIfNull(processor);
         SaveAsExcelFileAction = new UIAction("SaveAsExcelFile", SaveAsExcelFile, CanSaveAsExcelFile);
         SaveAsCsvFileAction = new UIAction("SaveAsCsvFile", SaveAsCsvFile, CanSaveAsCsvFile);
     }
@@ -27,7 +28,9 @@ public abstract class DataTableReportPage<TReportProcessor, TReportModel> : Repo
         SaveAsReportExecution(
             Res.SaveAsExcelFile_Title,
             Res.SaveAsExcelFile_SaveFileDialogFilter,
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             (baseStream) => Processor.ProcessToStream("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", baseStream)
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         );
         DialogResult = true;
     }
@@ -42,7 +45,9 @@ public abstract class DataTableReportPage<TReportProcessor, TReportModel> : Repo
         SaveAsReportExecution(
             Res.SaveAsCsvFile_Title,
             Res.SaveAsCsvFile_SaveFileDialogFilter,
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             (baseStream) => Processor.ProcessToStream("text/csv", baseStream)
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         );
         DialogResult = true;
     }

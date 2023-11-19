@@ -9,8 +9,8 @@ public abstract class ReportPage<TReportProcessor, TReportModel> : DialogPage
     where TReportProcessor : ReportProcessor<TReportModel>
     where TReportModel : Kapok.Report.Model.Report
 {
-    protected ReportPage(TReportModel model, TReportProcessor? processor, IViewDomain? viewDomain)
-        : base(viewDomain)
+    protected ReportPage(TReportModel model, TReportProcessor? processor, IServiceProvider serviceProvider)
+        : base(serviceProvider)
     {
         if (processor != null)
         {
@@ -31,33 +31,30 @@ public abstract class ReportPage<TReportProcessor, TReportModel> : DialogPage
     {
         ReportParameters.Clear();
 
-        if (ReportModel.Parameters != null)
+        foreach (var parameter in ReportModel.Parameters)
         {
-            foreach (var parameter in ReportModel.Parameters)
+            if ((parameter.DefaultIterativeValues?.Count ?? 0) > 0)
             {
-                if ((parameter.DefaultIterativeValues?.Count ?? 0) > 0)
+                ReportParameters.Add(new ReportParameterViewModel(parameter)
                 {
-                    ReportParameters.Add(new ReportParameterViewModel(parameter)
-                    {
-                        Value = parameter.DefaultValue,
-                        // TODO/NOTE: iterative values currently cannot be edited in view
-                        HasIterativeValues = true
-                    });
-                }
-                else
+                    Value = parameter.DefaultValue,
+                    // TODO/NOTE: iterative values currently cannot be edited in view
+                    HasIterativeValues = true
+                });
+            }
+            else
+            {
+                ReportParameters.Add(new ReportParameterViewModel(parameter)
                 {
-                    ReportParameters.Add(new ReportParameterViewModel(parameter)
-                    {
-                        Value = parameter.DefaultValue
-                    });
-                }
+                    Value = parameter.DefaultValue
+                });
             }
         }
     }
 
     protected TReportModel ReportModel { get; }
 
-    protected TReportProcessor Processor { get; }
+    protected TReportProcessor? Processor { get; }
 
     public Collection<ReportParameterViewModel> ReportParameters { get; }
 

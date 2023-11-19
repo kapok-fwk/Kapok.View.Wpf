@@ -44,6 +44,8 @@ public class CustomDataGrid : DataGrid
 
     protected override void OnSelectionChanged(SelectionChangedEventArgs e)
     {
+#if NET8_0_OR_GREATER
+#else
         try
         {
             base.OnSelectionChanged(e);
@@ -59,6 +61,7 @@ public class CustomDataGrid : DataGrid
 
             throw;
         }
+#endif
 
         OnSelectionChanged_MoveToSelectedEntry(e);
         OnSelectionChanged_UpdateSelectedItemsProperty();

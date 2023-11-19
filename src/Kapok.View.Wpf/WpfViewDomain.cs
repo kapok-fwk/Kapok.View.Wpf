@@ -378,14 +378,14 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         return new PropertyLookupView(lookupDefinition, dataDomain, currentSelector);
     }
 
-    public override IDataSetView<TEntry> CreateDataSetView<TEntry>(IDataDomainScope dataDomainScope, IDao<TEntry>? repository = null)
+    public override IDataSetView<TEntry> CreateDataSetView<TEntry>(IDataDomainScope dataDomainScope, IDao<TEntry>? dao = null)
     {
-        return new WpfDataSetView<TEntry>(this, dataDomainScope, repository);
+        return new WpfDataSetView<TEntry>(ServiceProvider, dataDomainScope, dao);
     }
 
-    public override IHierarchyDataSetView<TEntry> CreateHierarchyDataSetView<TEntry>(IDataDomainScope dataDomainScope, IDao<TEntry>? repository = null)
+    public override IHierarchyDataSetView<TEntry> CreateHierarchyDataSetView<TEntry>(IDataDomainScope dataDomainScope, IDao<TEntry>? dao = null)
     {
-        return new HierarchyDataSetView<TEntry>(this, dataDomainScope, repository);
+        return new HierarchyDataSetView<TEntry>(ServiceProvider, dataDomainScope, dao);
     }
 
     public override void ShowInfoMessage(string message, string? title = null, IPage? ownerPage = null)
@@ -590,7 +590,7 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         return dialog.FileName;
     }
 
-    public override bool OpenReportDialog(object model, IDataDomain dataDomain, object? reportLayout = null, IPage? ownerPage = null)
+    public override bool OpenReportDialog(object model, object? reportLayout = null, IPage? ownerPage = null)
     {
         if (!(model is Kapok.Report.Model.Report reportModel))
             throw new ArgumentException(
@@ -598,9 +598,8 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
 
         var page = new MimeTypeReportPage(
             reportModel,
-            dataDomain,
-            reportLayout as ReportLayout,
-            this);
+            ServiceProvider,
+            reportLayout as ReportLayout);
 
         var result = ownerPage == null ? page.ShowDialog() : page.ShowDialog(ownerPage);
         return result ?? false;

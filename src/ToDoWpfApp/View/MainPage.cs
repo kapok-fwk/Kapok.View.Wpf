@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Kapok.Data;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Kapok.View;
 using Kapok.View.Wpf.AvalonDock;
 
@@ -7,22 +7,18 @@ namespace ToDoWpfApp.View;
 
 public class MainPage : DocumentPageCollectionPage
 {
-    private IDataDomain _dataDomain;
-
-    public MainPage(IViewDomain? viewDomain, IDataDomain dataDomain)
-        : base(viewDomain)
+    public MainPage(IServiceProvider serviceProvider)
+        : base(serviceProvider)
     {
-        _dataDomain = dataDomain;
-
         Title = "Simple ToDo Application";
 
         // this is the menu for the navigation bar
         AddMenu("Main");
 
         // init commands
-        OpenToDoListAction = new UIOpenPageAction("OpenToDoList", typeof(TaskLists), ViewDomain);
-        OpenToDosAction = new UIOpenPageAction("OpenToDos", typeof(Tasks), ViewDomain);
-        OpenTestPageAction = new UIOpenPageAction("OpenTestPage", typeof(TestPage), ViewDomain);
+        OpenToDoListAction = new UIOpenPageAction("OpenToDoList", typeof(TaskLists), ServiceProvider);
+        OpenToDosAction = new UIOpenPageAction("OpenToDos", typeof(Tasks), ServiceProvider);
+        OpenTestPageAction = new UIOpenPageAction("OpenTestPage", typeof(TestPage), ServiceProvider);
     }
 
     protected override void OnLoading()

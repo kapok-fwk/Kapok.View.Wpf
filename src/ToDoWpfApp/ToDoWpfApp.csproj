@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kapok.Core" Version="0.1.15" />
-    <PackageReference Include="Kapok.Data.EntityFrameworkCore" Version="0.1.13" />
-    <PackageReference Include="Kapok.View" Version="0.1.17" />
+    <PackageReference Include="Kapok.Core" Version="0.1.21" />
+    <PackageReference Include="Kapok.Data.EntityFrameworkCore" Version="0.1.21" />
+    <PackageReference Include="Kapok.View" Version="0.1.21" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
       <PrivateAssets>all</PrivateAssets>

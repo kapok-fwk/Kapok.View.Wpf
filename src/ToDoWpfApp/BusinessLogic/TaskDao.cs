@@ -12,10 +12,6 @@ public class TaskDao : DeferredDao<Task>
     {
     }
 
-    public TaskDao(IDataDomainScope dataDomainScope) : base(dataDomainScope)
-    {
-    }
-
     public override void Init(Task entry)
     {
         base.Init(entry);

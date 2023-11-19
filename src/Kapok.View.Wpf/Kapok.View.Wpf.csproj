@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0-windows;net7.0-windows</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
@@ -161,10 +161,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kapok.Acl" Version="0.1.10" />
-    <PackageReference Include="Kapok.Core" Version="0.1.15" />
-    <PackageReference Include="Kapok.Report" Version="0.1.14" />
-    <PackageReference Include="Kapok.View" Version="0.1.17" />
+    <PackageReference Include="Kapok.Acl" Version="0.1.21" />
+    <PackageReference Include="Kapok.Core" Version="0.1.21" />
+    <PackageReference Include="Kapok.Report" Version="0.1.21" />
+    <PackageReference Include="Kapok.View" Version="0.1.21" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
   </ItemGroup>
 
