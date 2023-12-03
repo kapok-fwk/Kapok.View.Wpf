@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.22 (2023-12-03)
+
+- :rocket: build .NET 8.0 assemblies (finalize work of 0.1.21)
+
 ## 0.1.21 (2023-11-19)
 
 - :rocket: support .Net 8.0 build
