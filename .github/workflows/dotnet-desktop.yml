@@ -65,7 +65,7 @@ jobs:
       if: ${{ matrix.is_release }}
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3.1.2
       with:
         name: Nuget Packages
         path: ./out/*.nupkg
@@ -82,7 +82,7 @@ jobs:
     - name: Add Kapok package source
       run: dotnet nuget add source --username leo-schick --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name kapok-fwk "https://nuget.pkg.github.com/kapok-fwk/index.json"
 
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v3.0.2
       with:
         name: Nuget Packages
         path: ~/download/nuget_packages/
