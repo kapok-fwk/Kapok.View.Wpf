@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
 
     <PackageId>Kapok.View.Wpf.AvalonDock</PackageId>
-    <Version>0.1.22</Version>
+    <Version>0.2.0</Version>
     <Authors>Kapok Framework Community</Authors>
     <RepositoryUrl>https://github.com/kapok-fwk/kapok-fwk</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
