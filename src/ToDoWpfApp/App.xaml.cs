@@ -38,7 +38,7 @@ public partial class App : Application
 
         ModuleEngine.InitiateModule(typeof(ToDoModule));
 
-        DataDomain.DefaultDaoType = typeof(DeferredDao<>);
+        DataDomain.DefaultEntityServiceType = typeof(EntityDeferredCommitService<>);
 
         Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder().UseContentRoot(AppContext.BaseDirectory)
             .UseDefaultServiceProvider((context, options) =>

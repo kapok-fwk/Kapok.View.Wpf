@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kapok.Core" Version="0.1.21" />
-    <PackageReference Include="Kapok.Data.EntityFrameworkCore" Version="0.1.21" />
-    <PackageReference Include="Kapok.View" Version="0.1.21" />
+    <PackageReference Include="Kapok.Core" Version="0.2.0" />
+    <PackageReference Include="Kapok.Data.EntityFrameworkCore" Version="0.2.0" />
+    <PackageReference Include="Kapok.View" Version="0.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
       <PrivateAssets>all</PrivateAssets>

@@ -14,7 +14,7 @@ public class ToDoModule : ModuleBase
     public ToDoModule() : base(nameof(ToDoModule))
     {
         // data model registration
-        DataDomain.RegisterEntity<Task, TaskDao>();
+        DataDomain.RegisterEntity<Task, TaskService>();
         DataDomain.RegisterEntity<TaskList>();
 
         // register default pages for data models

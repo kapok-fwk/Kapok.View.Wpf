@@ -378,14 +378,14 @@ public class WpfViewDomain : ViewDomain, IWpfViewDomain
         return new PropertyLookupView(lookupDefinition, dataDomain, currentSelector);
     }
 
-    public override IDataSetView<TEntry> CreateDataSetView<TEntry>(IDataDomainScope dataDomainScope, IDao<TEntry>? dao = null)
+    public override IDataSetView<TEntry> CreateDataSetView<TEntry>(IDataDomainScope dataDomainScope, IEntityService<TEntry>? entityService = null)
     {
-        return new WpfDataSetView<TEntry>(ServiceProvider, dataDomainScope, dao);
+        return new WpfDataSetView<TEntry>(ServiceProvider, dataDomainScope, entityService);
     }
 
-    public override IHierarchyDataSetView<TEntry> CreateHierarchyDataSetView<TEntry>(IDataDomainScope dataDomainScope, IDao<TEntry>? dao = null)
+    public override IHierarchyDataSetView<TEntry> CreateHierarchyDataSetView<TEntry>(IDataDomainScope dataDomainScope, IEntityService<TEntry>? entityService = null)
     {
-        return new HierarchyDataSetView<TEntry>(ServiceProvider, dataDomainScope, dao);
+        return new HierarchyDataSetView<TEntry>(ServiceProvider, dataDomainScope, entityService);
     }
 
     public override void ShowInfoMessage(string message, string? title = null, IPage? ownerPage = null)

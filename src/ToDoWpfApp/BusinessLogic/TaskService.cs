@@ -6,9 +6,9 @@ using ToDoWpfApp.DataModel;
 
 namespace ToDoWpfApp.BusinessLogic;
 
-public class TaskDao : DeferredDao<Task>
+public class TaskService : EntityDeferredCommitService<Task>
 {
-    public TaskDao(IDataDomainScope dataDomainScope, IRepository<Task> repository) : base(dataDomainScope, repository)
+    public TaskService(IDataDomainScope dataDomainScope, IRepository<Task> repository) : base(dataDomainScope, repository)
     {
     }
 
