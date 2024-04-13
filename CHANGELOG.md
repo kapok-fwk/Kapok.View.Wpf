@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0 (204-04-13)
+
+- dependency upgrade: renamed Dao to EntityService
+
 ## 0.1.22 (2023-12-03)
 
 - :rocket: build .NET 8.0 assemblies (finalize work of 0.1.21)
