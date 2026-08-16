@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- :tada: add support for .Net 10.0
+
 ## 0.2.0 (204-04-13)
 
 - dependency upgrade: renamed Dao to EntityService
